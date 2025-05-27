@@ -36,7 +36,12 @@ const ResumeEditor = () => {
         </header>
         <main className="relative grow">
           <div className="absolute bottom-0 top-0 flex w-full overflow-y-auto">
-            <div className="w-full md:w-1/2">
+            <div
+              className="w-full md:w-1/2 overflow-y-auto "
+              style={{
+                scrollbarWidth: "none",
+              }}
+            >
               <Breadcrumbs currentStep={currentStep} setCurrentStep={setStep} />
               {FormComponent && (
                 <FormComponent
