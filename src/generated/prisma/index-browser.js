@@ -164,6 +164,31 @@ exports.Prisma.EducationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ProjectScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  gitHubLink: 'gitHubLink',
+  liveLink: 'liveLink',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  resumeId: 'resumeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ActivityScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  certLink: 'certLink',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  resumeId: 'resumeId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -183,7 +208,9 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Resume: 'Resume',
   WorkExperience: 'WorkExperience',
-  Education: 'Education'
+  Education: 'Education',
+  Project: 'Project',
+  Activity: 'Activity'
 };
 
 /**

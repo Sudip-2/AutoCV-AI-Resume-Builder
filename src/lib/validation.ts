@@ -70,10 +70,43 @@ export const skillSchema = z.object({
 export type skillsValues = z.infer<typeof skillSchema>;
 
 export const summarySchema = z.object({
-  summary:optionalStr,
-})
+  summary: optionalStr,
+});
 
-export type summaryValues = z.infer<typeof summarySchema>
+export type summaryValues = z.infer<typeof summarySchema>;
+
+export const projectSchema = z.object({
+  projects: z
+    .array(
+      z.object({
+        name: optionalStr,
+        description: optionalStr,
+        gitHubLink: optionalStr,
+        liveLink: optionalStr,
+        startDate: optionalStr,
+        endDate: optionalStr,
+      })
+    )
+    .optional(),
+});
+
+export type projectValues = z.infer<typeof projectSchema>;
+
+export const activitySchema = z.object({
+  activites: z
+    .array(
+      z.object({
+        name: optionalStr,
+        description: optionalStr,
+        certLink: optionalStr,
+        startDate: optionalStr,
+        endDate: optionalStr,
+      })
+    )
+    .optional(),
+});
+
+export type activityValues = z.infer<typeof activitySchema>;
 
 export const resumeSchema = z.object({
   ...generalInfoSchema.shape,
@@ -81,7 +114,11 @@ export const resumeSchema = z.object({
   ...workExperienceSchema.shape,
   ...educationSchema.shape,
   ...skillSchema.shape,
-  ...summarySchema.shape
+  ...summarySchema.shape,
+  ...projectSchema.shape,
+  ...activitySchema.shape,
+  colorHex: optionalStr,
+  borderStyle: optionalStr,
 });
 
 export type resumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {

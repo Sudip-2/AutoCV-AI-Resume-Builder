@@ -3,8 +3,9 @@ import { cn } from "@/lib/utils";
 import { resumeValues } from "@/lib/validation";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import {formatDate} from "date-fns"
- 
+import { formatDate } from "date-fns";
+import { Badge } from "../ui/badge";
+
 interface ResumePreviewProps {
   resumeData: resumeValues;
   className: string;
@@ -22,7 +23,7 @@ const ResumePreview = ({ className, resumeData }: ResumePreviewProps) => {
       ref={containerRef}
     >
       <div
-        className={cn("space-y-6 p-6", !width && "invisible")}
+        className={cn("space-y-4 p-6", !width && "invisible")}
         style={{
           zoom: (1 / 794) * width,
         }}
@@ -30,6 +31,10 @@ const ResumePreview = ({ className, resumeData }: ResumePreviewProps) => {
         <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
         <WorkExperienceSection resumeData={resumeData} />
+        <EducationSection resumeData={resumeData} />
+        <ProjectSection resumeData={resumeData} />
+        <SkillsSection resumeData={resumeData} />
+        <ActivitySection resumeData={resumeData} />
       </div>
     </div>
   );
@@ -42,8 +47,18 @@ interface ResumeSectionProps {
 }
 
 function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
-  const { city, country, email, firstName, jobTitle, lastName, phone, photo } =
-    resumeData;
+  const {
+    city,
+    country,
+    email,
+    firstName,
+    jobTitle,
+    lastName,
+    phone,
+    photo,
+    colorHex,
+    borderStyle,
+  } = resumeData;
 
   const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
 
@@ -67,11 +82,23 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       )}
       <div className="space-y-2.5">
         <div className="space-y-1">
-          <p className="text-3xl font-bold">
+          <p
+            className="text-3xl font-bold"
+            style={{
+              color: colorHex,
+            }}
+          >
             {firstName}
             {lastName}
           </p>
-          <p className="font-medium">{jobTitle}</p>
+          <p
+            className="font-medium"
+            style={{
+              color: colorHex,
+            }}
+          >
+            {jobTitle}
+          </p>
         </div>
         <p className="text-xs text-gray-500">
           {city}
@@ -86,13 +113,25 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
 }
 
 function SummarySection({ resumeData }: ResumeSectionProps) {
-  const { summary } = resumeData;
+  const { summary, colorHex } = resumeData;
   if (!summary) return null;
   return (
     <>
-      <div className="h-1 bg-gray-300" />
+      <div
+        className="h-1 bg-gray-200"
+        style={{
+          backgroundColor: colorHex,
+        }}
+      />
       <div className="space-y-3 break-inside-avoid">
-        <p className="text-lg font-semibold">Professional profile</p>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Professional profile
+        </p>
         <div className="whitespace-pre-line text-sm">{summary}</div>
       </div>
     </>
@@ -100,7 +139,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
 }
 
 function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
-  const { workExperience } = resumeData;
+  const { workExperience, colorHex } = resumeData;
 
   const workExperienceIsNotEmpty = workExperience?.filter(
     (exp) => Object.values(exp)?.filter(Boolean).length > 0
@@ -110,28 +149,284 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <div className="h-1 bg-gray-300" />
+      <div
+        className="h-1 bg-gray-200"
+        style={{
+          backgroundColor: colorHex,
+        }}
+      />
       <div className="space-y-3">
-        <p className="text-lg font-semibold">Work experience</p>
-        {
-          workExperienceIsNotEmpty.map((exp,index) => {
-            return(
-              <div key={index} className="break-inside-avoid space-y-1">
-                <div className="flex items-center justify-between text-sm font-semibold">
-                  <span>{exp.position}</span>
-                  {exp.startDate && (
-                    <span>
-                      {formatDate(exp.startDate,"MM/yyyy")} -{" "}
-                      {exp.endDate? formatDate(exp.startDate,"MM/yyyy"):"Present"}
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs font-semibold">{exp.company}</p>
-                <div className="whitespace-pre-line text-xs">{exp.description}</div>
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Work experience
+        </p>
+        {workExperienceIsNotEmpty.map((exp, index) => {
+          return (
+            <div key={index} className="break-inside-avoid space-y-1">
+              <div className="flex items-center justify-between text-sm font-semibold">
+                <span
+                  style={{
+                    color: colorHex,
+                  }}
+                >
+                  {exp.position}
+                </span>
+                {exp.startDate && (
+                  <span
+                    style={{
+                      color: colorHex,
+                    }}
+                  >
+                    {formatDate(exp.startDate, "MM/yyyy/dd")} -{" "}
+                    {exp.endDate
+                      ? formatDate(exp.endDate, "MM/yyyy/dd")
+                      : "Present"}
+                  </span>
+                )}
               </div>
-            )
-          })
-        }
+              <p className="text-xs font-semibold">{exp.company}</p>
+              <div className="whitespace-pre-line text-xs">
+                {exp.description}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+function ProjectSection({ resumeData }: ResumeSectionProps) {
+  const { projects, colorHex } = resumeData;
+
+  const projectIsNotEmpty = projects?.filter(
+    (proj) => Object.values(proj)?.filter(Boolean).length > 0
+  );
+
+  if (!projectIsNotEmpty?.length) return null;
+
+  return (
+    <>
+      <div
+        className="h-1 bg-gray-200"
+        style={{
+          backgroundColor: colorHex,
+        }}
+      />
+      <div className="space-y-3">
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Project
+        </p>
+        {projectIsNotEmpty.map((proj, index) => {
+          return (
+            <div key={index} className="break-inside-avoid space-y-1">
+              <div className="flex items-center justify-between text-sm font-semibold">
+                <span
+                  style={{
+                    color: colorHex,
+                  }}
+                >
+                  {proj.name}
+                </span>
+                {proj.startDate && (
+                  <span
+                    style={{
+                      color: colorHex,
+                    }}
+                  >
+                    {formatDate(proj.startDate, "MM/yyyy/dd")} -{" "}
+                    {proj.endDate
+                      ? formatDate(proj.endDate, "MM/yyyy/dd")
+                      : "Present"}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs font-semibold">
+                {proj.gitHubLink ? "Github: " : ""}
+                {proj.gitHubLink}
+              </p>
+              <p className="text-xs font-semibold">
+                {proj.liveLink ? "Live url: " : ""}
+                {proj.liveLink}
+              </p>
+              <div className="whitespace-pre-line text-xs pt-2">
+                {proj.description}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+function EducationSection({ resumeData }: ResumeSectionProps) {
+  const { education, colorHex } = resumeData;
+
+  const educationIsNotEmpty = education?.filter(
+    (edu) => Object.values(edu)?.filter(Boolean).length > 0
+  );
+
+  if (!educationIsNotEmpty?.length) return null;
+
+  return (
+    <>
+      <div
+        className="h-1 bg-gray-200"
+        style={{
+          backgroundColor: colorHex,
+        }}
+      />
+      <div className="space-y-3">
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Education
+        </p>
+        {educationIsNotEmpty.map((edu, index) => {
+          return (
+            <div key={index} className="break-inside-avoid space-y-1">
+              <div className="flex items-center justify-between text-sm font-semibold">
+                <span
+                  style={{
+                    color: colorHex,
+                  }}
+                >
+                  {edu.degree}
+                </span>
+                {edu.startDate && (
+                  <span
+                    style={{
+                      color: colorHex,
+                    }}
+                  >
+                    {formatDate(edu.startDate, "MM/yyyy/dd")} -{" "}
+                    {edu.endDate
+                      ? formatDate(edu.endDate, "MM/yyyy/dd")
+                      : "Present"}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs font-semibold">{edu.school}</p>
+            </div>
+          );
+        })}
+      </div>
+    </>
+  );
+}
+
+function SkillsSection({ resumeData }: ResumeSectionProps) {
+  const { skills, colorHex } = resumeData;
+
+  if (!skills?.length) return null;
+
+  return (
+    <>
+      <div
+        className="h-1 bg-gray-200"
+        style={{
+          backgroundColor: colorHex,
+        }}
+      />
+      <div className="break-inside-avoid space-y-3">
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Skills
+        </p>
+        <div className="flex break-inside-avoid flex-wrap gap-2">
+          {skills.map((skill, index) => {
+            return (
+              <Badge
+                key={index}
+                className="bg-black text-white"
+                style={{
+                  backgroundColor: colorHex,
+                }}
+              >
+                {skill}
+              </Badge>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function ActivitySection({ resumeData }: ResumeSectionProps) {
+  const { activites, colorHex } = resumeData;
+
+  const activityIsNotEmpty = activites?.filter(
+    (act) => Object.values(act)?.filter(Boolean).length > 0
+  );
+
+  if (!activityIsNotEmpty?.length) return null;
+
+  return (
+    <>
+      <div
+        className="h-1 bg-gray-200"
+        style={{
+          backgroundColor: colorHex,
+        }}
+      />
+      <div className="space-y-3">
+        <p
+          className="text-lg font-semibold"
+          style={{
+            color: colorHex,
+          }}
+        >
+          Activities
+        </p>
+        {activityIsNotEmpty.map((act, index) => {
+          return (
+            <div key={index} className="break-inside-avoid space-y-1">
+              <div className="flex items-center justify-between text-sm font-semibold">
+                <span
+                  style={{
+                    color: colorHex,
+                  }}
+                >
+                  {act.name}
+                </span>
+                {act.startDate && (
+                  <span
+                    style={{
+                      color: colorHex,
+                    }}
+                  >
+                    {formatDate(act.startDate, "MM/yyyy/dd")}
+                    {act.endDate
+                      ? `${" - "}${formatDate(act.endDate, "MM/yyyy/dd")}`
+                      : ""}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs font-semibold">{act.certLink}</p>
+              <div className="whitespace-pre-line text-xs">
+                {act.description}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </>
   );

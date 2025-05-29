@@ -36,6 +36,8 @@ model Resume {
 
   workExperiences WorkExperience[]
   Education       Education[]
+  Projects         Project[]
+  Activities       Activity[]
   skills          String[]
 
   createdAt DateTime @default(now())
@@ -77,4 +79,41 @@ model Education {
   updatedAt DateTime @updatedAt
 
   @@map("education")
+}
+
+model Project {
+  id String @id @default(cuid())
+
+  name        String?
+  description String?
+  gitHubLink  String?
+  liveLink    String?
+  startDate   DateTime?
+  endDate     DateTime?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("project")
+}
+
+model Activity {
+  id String @id @default(cuid())
+
+  name        String?
+  description String?
+  certLink    String?
+  startDate   DateTime?
+  endDate     DateTime?
+
+  resumeId String
+  resume   Resume @relation(fields: [resumeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("activity")
 }
