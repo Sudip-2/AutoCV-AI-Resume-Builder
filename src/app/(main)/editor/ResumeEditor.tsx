@@ -6,11 +6,13 @@ import Breadcrumbs from "./Breadcrumbs";
 import Footer from "./Footer";
 import { resumeValues } from "@/lib/validation";
 import ResumePreviewSection from "./ResumePreviewSection";
+import { cn } from "@/lib/utils";
 
 const ResumeEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
   const [resumeData, setResumeData] = useState<resumeValues>({});
+  const [showSmResumePrev, setShowSmResumePrev] = useState(false);
 
   //sets the search query step in url
   function setStep(key: string) {
@@ -26,7 +28,7 @@ const ResumeEditor = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto flex grow flex-col w-full">
+      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto flex grow flex-col w-full">
         <header className="text-center py-5 border-b px-3">
           <h1 className="text-2xl font-semibold">Design your resume</h1>
           <p className="text-sm text-muted-foreground">
@@ -35,9 +37,14 @@ const ResumeEditor = () => {
           </p>
         </header>
         <main className="relative grow">
-          <div className="absolute bottom-0 top-0 flex w-full overflow-y-auto">
+          <div
+            className={"absolute bottom-0 top-0 flex w-full overflow-y-auto"}
+          >
             <div
-              className="w-full md:w-1/2 overflow-y-auto "
+              className={cn(
+                "w-full md:w-1/2 overflow-y-auto md:block",
+                showSmResumePrev && "hidden"
+              )}
               style={{
                 scrollbarWidth: "none",
               }}
@@ -54,10 +61,16 @@ const ResumeEditor = () => {
             <ResumePreviewSection
               resumeData={resumeData}
               setResumeData={setResumeData}
+              className={cn(showSmResumePrev && "flex")}
             />
           </div>
         </main>
-        <Footer currentStep={currentStep} setCurrentStep={setStep} />
+        <Footer
+          currentStep={currentStep}
+          setCurrentStep={setStep}
+          showSmResumePrev={showSmResumePrev}
+          setShowSmResumePrev={setShowSmResumePrev}
+        />
       </div>
     </>
   );

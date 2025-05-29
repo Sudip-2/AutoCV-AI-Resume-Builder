@@ -11,8 +11,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { EditorFormProps } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
 const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
   const form = useForm<PersonalInfoValues>({
@@ -46,6 +47,8 @@ const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
     };
   }, [form, setResumeData, resumeData]);
 
+  const photoInputRef = useRef<HTMLInputElement>(null);
+
   return (
     <div className="max-w-xl mx-auto px-3 py-6">
       <div className="text-center space-y-1.5">
@@ -62,17 +65,32 @@ const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
             render={({ field: { value, ...fieldValues } }) => (
               <FormItem>
                 <FormLabel>Your Photo</FormLabel>
-                <FormControl>
-                  <Input
-                    {...fieldValues}
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      fieldValues.onChange(file);
+                <div className="flex  gap-2">
+                  <FormControl>
+                    <Input
+                      {...fieldValues}
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        fieldValues.onChange(file);
+                      }}
+                      ref={photoInputRef}
+                    />
+                  </FormControl>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      fieldValues.onChange(null);
+                      if(photoInputRef.current){
+                        photoInputRef.current.value = ""
+                      }
                     }}
-                  />
-                </FormControl>
+                  >
+                    Remove
+                  </Button>
+                </div>
                 <FormDescription>Choose image</FormDescription>
                 <FormMessage />
               </FormItem>
@@ -86,7 +104,7 @@ const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
                 <FormItem>
                   <FormLabel>First name</FormLabel>
                   <FormControl>
-                    <Input {...field} autoFocus/>
+                    <Input {...field} autoFocus />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

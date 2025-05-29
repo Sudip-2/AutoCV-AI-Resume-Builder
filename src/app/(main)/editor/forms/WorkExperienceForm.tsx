@@ -74,6 +74,7 @@ const WorkExperienceForm = ({ resumeData, setResumeData }: EditorFormProps) => {
             <div className="flex justify-center">
               <Button
                 type="button"
+                className="mb-2"
                 onClick={() =>
                   append({
                     position: "",

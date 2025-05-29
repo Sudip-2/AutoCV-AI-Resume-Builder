@@ -14,7 +14,6 @@ interface ColorPickerProps {
 }
 
 export default function ColorPicker({ color, onchange }: ColorPickerProps) {
-  const [showPopover, setShowPopover] = useState(false);
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -27,8 +26,11 @@ export default function ColorPicker({ color, onchange }: ColorPickerProps) {
           <PaletteIcon className="size-5" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="border-none bg-transparent shadow-none" align="end">
-        <TwitterPicker color={color} onChange={onchange} triangle="top-right"/>
+      <PopoverContent
+        className="border-none bg-transparent shadow-none"
+        align="end"
+      >
+        <TwitterPicker color={color} onChange={onchange} triangle="top-right" />
       </PopoverContent>
     </Popover>
   );

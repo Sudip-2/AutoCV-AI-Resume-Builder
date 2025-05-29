@@ -11,7 +11,7 @@ import { useTheme } from "next-themes";
 const Navbar = () => {
   const { theme } = useTheme();
   return (
-    <header className="max-w-7xl p-3 mx-auto flex justify-between items-center border-b w-full">
+    <header className="max-w-7xl 2xl:max-w-[1536px] p-3 mx-auto flex justify-between items-center border-b w-full">
       <Link href={"/resumes"} className="flex items-center gap-2">
         <div className="h-8 w-8 relative">
           <Image src={logo} alt="logo" fill className="rounded-full" />
