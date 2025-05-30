@@ -9,6 +9,7 @@ interface footerProps {
   setCurrentStep: (step: string) => void;
   showSmResumePrev: boolean;
   setShowSmResumePrev: (show: boolean) => void;
+  isSaving: boolean;
 }
 
 const Footer = ({
@@ -16,6 +17,7 @@ const Footer = ({
   setCurrentStep,
   showSmResumePrev,
   setShowSmResumePrev,
+  isSaving,
 }: footerProps) => {
   const previousStep = steps.find(
     (_, index) => steps[index + 1]?.key === currentStep
@@ -56,7 +58,7 @@ const Footer = ({
         <Button asChild variant="outline">
           <Link href={"/resumes"}>Close</Link>
         </Button>
-        <span className="text-muted-foreground">...saving</span>
+        {isSaving && <span className="text-muted-foreground">...saving</span>}
       </div>
     </footer>
   );

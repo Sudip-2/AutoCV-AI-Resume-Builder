@@ -7,12 +7,18 @@ import Footer from "./Footer";
 import { resumeValues } from "@/lib/validation";
 import ResumePreviewSection from "./ResumePreviewSection";
 import { cn } from "@/lib/utils";
+import useAutoSaveResume from "./useAutoSaveResume";
+import useUnloadWarning from "@/hooks/useUnloadWarning";
 
 const ResumeEditor = () => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
   const [resumeData, setResumeData] = useState<resumeValues>({});
   const [showSmResumePrev, setShowSmResumePrev] = useState(false);
+
+  const { hasUnsavedChanges, isSaving } = useAutoSaveResume(resumeData);
+
+  useUnloadWarning(hasUnsavedChanges);
 
   //sets the search query step in url
   function setStep(key: string) {
@@ -70,6 +76,7 @@ const ResumeEditor = () => {
           setCurrentStep={setStep}
           showSmResumePrev={showSmResumePrev}
           setShowSmResumePrev={setShowSmResumePrev}
+          isSaving={isSaving}
         />
       </div>
     </>
