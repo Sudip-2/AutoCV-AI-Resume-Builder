@@ -27,7 +27,7 @@ const Footer = ({
   )?.key;
 
   return (
-    <footer className="py-5 flex justify-between items-center border-t px-3">
+    <footer className="py-5 flex justify-between items-center border-t px-3 gap-2">
       <div className="flex gap-3 flex-wrap-reverse">
         <Button
           variant="outline"
