@@ -249,8 +249,7 @@ const ActivityItem = ({ id, form, index, remove }: ActivityItemProps) => {
         />
       </div>
       <FormDescription>
-        Leave <span className="font-semibold">end date</span> empty if you are
-        currently work there
+        Leave <span className="font-semibold">end date</span> empty if the activity hasn't ended
       </FormDescription>
       <FormField
         control={form.control}

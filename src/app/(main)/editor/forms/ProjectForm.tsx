@@ -261,7 +261,7 @@ const ProjectItem = ({ id, form, index, remove }: ProjectItemProps) => {
       </div>
       <FormDescription>
         Leave <span className="font-semibold">end date</span> empty if you are
-        currently work there
+        currently working on the project
       </FormDescription>
       <FormField
         control={form.control}

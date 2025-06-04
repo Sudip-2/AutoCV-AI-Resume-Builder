@@ -62,7 +62,7 @@ export default function useAutoSaveResume(resumeData: resumeValues) {
           description: (
             <div className="flex gap-2 mt-2">
               <Button
-                variant="outline"
+                variant="default"
                 size="sm"
                 onClick={() => {
                   toast.dismiss(toastId);
