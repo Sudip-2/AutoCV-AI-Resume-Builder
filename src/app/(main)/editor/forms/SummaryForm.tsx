@@ -1,3 +1,4 @@
+import GenerateSummaryBtn from "@/components/custom/GenerateSummaryBtn";
 import {
   Form,
   FormControl,
@@ -67,6 +68,7 @@ const SummaryForm = ({ resumeData, setResumeData }: EditorFormProps) => {
                   />
                 </FormControl>
                 <FormMessage />
+                <GenerateSummaryBtn resumeData={resumeData} onSummaryGenerated={summary => form.setValue("summary",summary)}/>
               </FormItem>
             )}
           />
