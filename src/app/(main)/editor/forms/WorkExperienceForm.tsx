@@ -35,6 +35,7 @@ import {
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
+import GenerateWorkExpBtn from "@/components/custom/GenerateWorkExpBtn";
 
 const WorkExperienceForm = ({ resumeData, setResumeData }: EditorFormProps) => {
   const form = useForm<workExperienceValues>({
@@ -187,6 +188,13 @@ const WorkExperienceItem = ({
           {...listeners}
         />
       </div>
+      <div className="flex justify-center">
+        <GenerateWorkExpBtn
+          onWorkExpGenerated={(exp) =>
+            form.setValue(`workExperience.${index}`, exp)
+          }
+        />
+      </div>
       <FormField
         control={form.control}
         name={`workExperience.${index}.position`}
@@ -224,7 +232,7 @@ const WorkExperienceItem = ({
                 <Input
                   {...field}
                   type="date"
-                  value={field.value?.slice(0, 10)}
+                  value={field.value ? field.value?.slice(0, 10) : ""}
                 />
               </FormControl>
               <FormMessage />
@@ -241,7 +249,7 @@ const WorkExperienceItem = ({
                 <Input
                   {...field}
                   type="date"
-                  value={field.value?.slice(0, 10)}
+                  value={field.value ? field.value?.slice(0, 10) : ""}
                 />
               </FormControl>
               <FormMessage />
