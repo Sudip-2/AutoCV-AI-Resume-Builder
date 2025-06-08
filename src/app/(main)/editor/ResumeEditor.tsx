@@ -41,7 +41,7 @@ const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
 
   return (
     <>
-      <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto flex grow flex-col w-full">
+      <div className="mx-auto flex grow flex-col w-full">
         <header className="text-center py-5 border-b px-3">
           <h1 className="text-2xl font-semibold">Design your resume</h1>
           <p className="text-sm text-muted-foreground">
