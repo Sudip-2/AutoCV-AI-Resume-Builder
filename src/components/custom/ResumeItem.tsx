@@ -4,7 +4,7 @@ import { mapToResumeValues, ResumeServerData } from "@/lib/types";
 import { formatDate } from "date-fns";
 import Link from "next/link";
 import ResumePreview from "./ResumePreview";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Button } from "../ui/button";
-import { MoreVertical, Trash2 } from "lucide-react";
+import { DownloadIcon, MoreVertical, Printer, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -24,16 +24,22 @@ import {
 } from "../ui/dialog";
 import deleteResume from "@/app/Actions/resumeActions";
 import LoadingBtn from "./LoadingBtn";
+import { useReactToPrint } from "react-to-print";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
 }
 
 export default function ResumeItem({ resume }: ResumeItemProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const reactToPrint = useReactToPrint({
+    contentRef,
+    documentTitle: resume.title || "Resume",
+  });
   const wasUpdated = resume.updatedAt!;
   return (
     <div className="rounded-lg relative border border-transparent bg-secondary p-3 transition-colors hover:border-border hover:shadow-sm">
-      <MoreMenu resumeId={resume.id} />
+      <MoreMenu resumeId={resume.id} onPrintClick={reactToPrint} />
       <div className="space-y-5">
         <Link
           href={`editor?resumeId=${resume.id}`}
@@ -59,6 +65,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
           <ResumePreview
             resumeData={mapToResumeValues(resume)}
             className="overflow-hidden"
+            contentRef={contentRef}
           />
         </Link>
       </div>
@@ -68,9 +75,11 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
 
 interface MoreMenuProps {
   resumeId: string;
+  onPrintClick: () => void;
+  // onDownloadClick: () => void;
 }
 
-function MoreMenu({resumeId}: MoreMenuProps) {
+function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
   const [showDeleteConformation, setShowDeleteConformation] = useState(false);
 
   return (
@@ -93,9 +102,20 @@ function MoreMenu({resumeId}: MoreMenuProps) {
             <Trash2 className="size-4" />
             Delete
           </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex gap-3 items-center"
+            onClick={onPrintClick}
+          >
+            <Printer className="size-4" />
+            Print
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteConformationDialog onOpenChange={setShowDeleteConformation} resumeId={resumeId} open={showDeleteConformation}/>
+      <DeleteConformationDialog
+        onOpenChange={setShowDeleteConformation}
+        resumeId={resumeId}
+        open={showDeleteConformation}
+      />
     </>
   );
 }
@@ -136,19 +156,16 @@ function DeleteConformationDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-            <LoadingBtn
+          <LoadingBtn
             variant="destructive"
             onClick={handleDelete}
             loading={isPending}
-            >
-                Delete
-            </LoadingBtn>
-            <Button
-            variant={"secondary"}
-            onClick={() => onOpenChange(false)}
-            >
-                Cancel
-            </Button>
+          >
+            Delete
+          </LoadingBtn>
+          <Button variant={"secondary"} onClick={() => onOpenChange(false)}>
+            Cancel
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

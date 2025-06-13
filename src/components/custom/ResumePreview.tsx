@@ -9,12 +9,13 @@ import { BorderStyles } from "@/app/(main)/editor/BorderStyleBtn";
 
 interface ResumePreviewProps {
   resumeData: resumeValues;
+  contentRef?:React.Ref<HTMLDivElement>
   className: string;
 }
 
-const ResumePreview = ({ className, resumeData }: ResumePreviewProps) => {
+const ResumePreview = ({ className, resumeData,contentRef }: ResumePreviewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions(containerRef);
+  const { width } = useDimensions<HTMLDivElement>(containerRef);
   return (
     <div
       className={cn(
@@ -28,6 +29,8 @@ const ResumePreview = ({ className, resumeData }: ResumePreviewProps) => {
         style={{
           zoom: (1 / 794) * width,
         }}
+        ref={contentRef}
+        id="resumePrevContent"
       >
         <PersonalInfoHeader resumeData={resumeData} />
         <SummarySection resumeData={resumeData} />
@@ -238,7 +241,7 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
         {projectIsNotEmpty.map((proj, index) => {
           return (
             <div key={index} className="break-inside-avoid space-y-1">
-              <div className="flex items-center justify-between text-sm font-semibold">
+              <div className="break-inside-avoid flex items-center justify-between text-sm font-semibold">
                 <span
                   style={{
                     color: colorHex,

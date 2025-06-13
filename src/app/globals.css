@@ -120,3 +120,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media print{
+  #resumePrevContent{
+    zoom: 1 !important;
+    padding: 0;
+  }
+}
+
+#resumePrevContent{
+  font-family: Inter;
+}
+
+@page{
+  size: A4;
+  margin: 0.6cm;
+}
