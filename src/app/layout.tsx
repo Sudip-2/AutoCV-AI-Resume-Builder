@@ -4,6 +4,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import "./globals.css";
 import { Toaster } from "sonner";
+import PremiumModal from "@/components/custom/PremiumModal";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <PremiumModal />
             <Toaster />
           </ThemeProvider>
         </body>
