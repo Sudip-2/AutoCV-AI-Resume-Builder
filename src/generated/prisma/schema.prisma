@@ -117,3 +117,18 @@ model Activity {
 
   @@map("activity")
 }
+
+model userSubscription {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  customerId        String   @unique
+  subscriptionId    String   @unique
+  priceId           String
+  currentPeriodEnd  DateTime
+  cancelAtPeriodEnd Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("subscription")
+}

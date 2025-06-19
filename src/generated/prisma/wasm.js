@@ -189,6 +189,18 @@ exports.Prisma.ActivityScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserSubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  customerId: 'customerId',
+  subscriptionId: 'subscriptionId',
+  priceId: 'priceId',
+  currentPeriodEnd: 'currentPeriodEnd',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -210,7 +222,8 @@ exports.Prisma.ModelName = {
   WorkExperience: 'WorkExperience',
   Education: 'Education',
   Project: 'Project',
-  Activity: 'Activity'
+  Activity: 'Activity',
+  userSubscription: 'userSubscription'
 };
 
 /**

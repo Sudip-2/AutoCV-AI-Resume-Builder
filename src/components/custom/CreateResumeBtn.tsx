@@ -17,7 +17,7 @@ export default function CreateResumeBtn({ canCreate }: CreateResumeBtnProps) {
           href={"/editor"}
           className="sm:h-full sm:rounded-lg sm:border border-transparent sm:bg-secondary sm:p-3 sm:transition-colors sm:hover:border-border sm:hover:shadow-sm flex justify-center sm:items-center"
         >
-          <Button asChild>
+          <Button>
             <PlusSquare className="size-5" />
             <span className="text-lg">New resume</span>
           </Button>
