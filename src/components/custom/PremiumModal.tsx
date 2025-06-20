@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Check } from "lucide-react";
+import { Check, IndianRupeeIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { usePremiumModalStore } from "@/hooks/useModals";
 import { paymentActions } from "@/app/Actions/paymentActions";
@@ -15,7 +15,7 @@ import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const freeFeatures = ["Upto 3 Resumes", "Basic templates"];
+const freeFeatures = ["Upto 2 Resume", "Basic templates"];
 const premiumFeatures = ["Unlimited resumes", "Unlock more templates"];
 
 declare global {
@@ -114,11 +114,11 @@ export default function PremiumModal() {
                 ))}
               </ul>
               <Button
-                className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white hover:text-white"
+                className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white hover:text-white flex gap-x-0"
                 onClick={openRazorPay}
                 disabled={isProcessing}
               >
-                Get Premium
+                Get Premium <span className="flex items-center"><IndianRupeeIcon/>29</span>
               </Button>
             </div>
           </div>

@@ -1,6 +1,8 @@
 "use server";
 
+import canCreateResume from "@/lib/permission";
 import prisma from "@/lib/prisma";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { resumeSchema, resumeValues } from "@/lib/validation";
 import { auth } from "@clerk/nextjs/server";
 import { del, put } from "@vercel/blob";
@@ -23,8 +25,17 @@ export async function saveResume(values: resumeValues) {
     throw new Error("User not authenticated");
   }
 
-  // TODO: Check resume count for non premium users
+  const subsLevel = await getUserSubscriptionLevel(userId);
 
+  if (!id) {
+    const resumeCount = await prisma.resume.count({ where: { userId } });
+
+    if (!canCreateResume(subsLevel, resumeCount)) {
+      throw new Error(
+        "Maximum resume count reached for this subscription level"
+      );
+    }
+  }
   const existingResume = id
     ? await prisma.resume.findUnique({ where: { id, userId } })
     : null;
@@ -145,19 +156,19 @@ export default async function deleteResume(id: string) {
     },
   });
 
-  if(!resume){
-    throw new Error("Resume not found")
+  if (!resume) {
+    throw new Error("Resume not found");
   }
 
-  if(resume.photoUrl){
-    await del(resume.photoUrl)
+  if (resume.photoUrl) {
+    await del(resume.photoUrl);
   }
 
   await prisma.resume.delete({
-    where:{
-      id
-    }
-  })
+    where: {
+      id,
+    },
+  });
 
-  revalidatePath("/resumes")
+  revalidatePath("/resumes");
 }

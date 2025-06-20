@@ -1,6 +1,8 @@
 import CreateResumeBtn from "@/components/custom/CreateResumeBtn";
 import ResumeItem from "@/components/custom/ResumeItem";
+import canCreateResume from "@/lib/permission";
 import prisma from "@/lib/prisma";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
 import { resumeDataInclude } from "@/lib/types";
 import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
@@ -24,6 +26,8 @@ const page = async () => {
     include: resumeDataInclude,
   });
 
+  const subLevel = await getUserSubscriptionLevel(userId);
+
   const totalResumes = await prisma.resume.count({ where: { userId } });
 
   return (
@@ -31,7 +35,9 @@ const page = async () => {
       <div className="space-y-3">
         <h1 className="text-xl font-semibold">Your resumes {totalResumes}</h1>
         <div className="flex flex-col sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          <CreateResumeBtn canCreate={totalResumes < 3} />
+          <CreateResumeBtn
+            canCreate={canCreateResume(subLevel, totalResumes)}
+          />
           {resumes.map((resume) => (
             <ResumeItem resume={resume} key={resume.id} />
           ))}
