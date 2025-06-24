@@ -10,8 +10,8 @@ export default function HeroSec() {
         <Badge variant={"outline"} className="text-xs text-gray-400 lg:text-base rounded-xl">
           ATS-Optimized Resumes
         </Badge>
-        <div className="text-primary font-bold text-xl md:text-4xl lg:text-5xl xl:text-6xl max-w-[200px] md:max-w-[700px] lg:max-w-[1040px] text-start">
-          <span className="text-blue-500 hover:text-blue-600 text-2xl md:text-5xl lg:text-6xl xl:text-7xl">
+        <div className="text-primary font-bold text-3xl md:text-4xl lg:text-5xl xl:text-6xl max-w-[280px] md:max-w-[700px] lg:max-w-[1040px] text-start">
+          <span className="text-blue-500 hover:text-blue-600 text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
             Create Professional Resumes
           </span>{" "}
           <span className="inline-block md:mt-4">That Get You Hired</span>

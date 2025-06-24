@@ -1,8 +1,14 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
+const isPublicRoute = createRouteMatcher([
+  "/",
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/api/razorpay-webhook",
+]);
 
-export default clerkMiddleware(async (auth, req) => { //this callback runs on every request
+export default clerkMiddleware(async (auth, req) => {
+  //this callback runs on every request
   if (!isPublicRoute(req)) {
     await auth.protect();
   }

@@ -28,7 +28,6 @@ export default function PremiumModal() {
   const { open, setOpen } = usePremiumModalStore();
   const { isSignedIn, user } = useUser();
   const [isProcessing, setIsProcessing] = useState(false);
-  const logo = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmCpavs3eER7e6lV63rJvOV1XDrE3l3bhrfQ&s"
   if (!isSignedIn) return;
   let openRazorPay = async () => {
     setIsProcessing(true);
@@ -43,7 +42,7 @@ export default function PremiumModal() {
         name: "AutoCV Premium",
         description:
           "Unlock more features and capabilities with AutoCV Premium.",
-        image: logo,
+        image: process.env.NEXT_PUBLIC_AutoCV_Logo,
         callback_url: "/billing",
         prefill: {
           name: user?.fullName || "",
