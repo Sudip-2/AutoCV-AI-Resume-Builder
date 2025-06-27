@@ -9,7 +9,10 @@ import {
 import { Check, IndianRupeeIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import { usePremiumModalStore } from "@/hooks/useModals";
-import { paymentActions } from "@/app/Actions/paymentActions";
+import {
+  paymentActions,
+  saveSubsAfterPayment,
+} from "@/app/Actions/paymentActions";
 import Script from "next/script";
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
@@ -43,7 +46,7 @@ export default function PremiumModal() {
         description:
           "Unlock more features and capabilities with AutoCV Premium.",
         image: process.env.NEXT_PUBLIC_AutoCV_Logo,
-        callback_url: "/billing",
+        callback_url: "/subscription",
         prefill: {
           name: user?.fullName || "",
           email: user?.emailAddresses[0]?.emailAddress || "",
@@ -52,12 +55,25 @@ export default function PremiumModal() {
         theme: {
           color: "#3B82F6",
         },
+        recurring: true,
+        handler: async function (response: any) {
+          await saveSubsAfterPayment({
+            userId: user.id,
+            subscriptionId: response.razorpay_subscription_id,
+          });
+          console.log("Payment successful:", response);
+          toast.success("Payment successful!");
+        },
       };
       let rzp1 = new window.Razorpay(options);
       rzp1.open();
+      rzp1.on("payment.failed", function (response: any) {
+        toast.error("Payment failed, please try again.");
+        console.error("Payment failed:", response.error);
+      });
     } catch (error) {
       console.log("Error opening Razorpay:", error);
-      toast.error("Something went wrong. try again");
+      toast.error("Subscription Activating please wait....");
     } finally {
       setIsProcessing(false);
     }
@@ -117,7 +133,11 @@ export default function PremiumModal() {
                 onClick={openRazorPay}
                 disabled={isProcessing}
               >
-                Get Premium <span className="flex items-center"><IndianRupeeIcon/>29</span>
+                Get Premium{" "}
+                <span className="flex items-center">
+                  <IndianRupeeIcon />
+                  29
+                </span>
               </Button>
             </div>
           </div>

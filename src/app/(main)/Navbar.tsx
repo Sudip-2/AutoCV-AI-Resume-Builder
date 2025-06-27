@@ -35,9 +35,9 @@ const Navbar = () => {
           >
             <UserButton.MenuItems>
               <UserButton.Link
-                label="Billing"
+                label="Subscription"
                 labelIcon={<CreditCard className="h-4 w-4" />}
-                href="/billing"
+                href="/subscription"
               />
             </UserButton.MenuItems>
           </UserButton>

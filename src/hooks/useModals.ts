@@ -1,13 +1,13 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
-interface usePremiumModalInterface{
-    open:boolean|undefined
-    setOpen:(open:boolean) => void 
+interface usePremiumModalInterface {
+  open: boolean | undefined;
+  setOpen: (open: boolean) => void;
 }
 
 const usePremiumModalStore = create<usePremiumModalInterface>((set) => ({
   open: false,
-  setOpen:(open:boolean) => set({open})
-}))
+  setOpen: (open: boolean) => set({ open }),
+}));
 
-export {usePremiumModalStore}
+export { usePremiumModalStore };

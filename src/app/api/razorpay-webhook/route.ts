@@ -22,9 +22,6 @@ export async function POST(req: NextRequest) {
     }
 
     switch (payloadObj.event) {
-      // case "payment.captured":
-      //   await handlePaymentCaptured(payloadObj);
-      //   break;
       case "subscription.activated":
       case "subscription.updated":
         await handleSubCreatedOrUpdated(
@@ -32,7 +29,7 @@ export async function POST(req: NextRequest) {
         );
         break;
       case "subscription.cancelled":
-        await handleSubDeleted(payloadObj);
+        await handleSubDeleted(payloadObj.payload.subscription.entity.id);
         break;
       default:
         console.log(`The unhandled event type is: ${payloadObj.event}`);
@@ -45,7 +42,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// async function handlePaymentCaptured(session: string) {}
 async function handleSubCreatedOrUpdated(subscriptionId: string) {
   let subscription = await razorPay.subscriptions.fetch(subscriptionId);
   console.log(subscription);
@@ -53,11 +49,11 @@ async function handleSubCreatedOrUpdated(subscriptionId: string) {
   if (subscription.status === "active" || subscription.status === "expired") {
     await prisma.userSubscription.upsert({
       where: {
-        userId: subscription.notes.userId,
+        userId: subscription.notes!.userId as string,
       },
       create: {
-        userId: subscription.notes.userId,
-        customerId: subscription.customer_id,
+        userId: subscription.notes!.userId as string,
+        customerId: subscription.customer_id!,
         subscriptionId: subscription.id,
         priceId: subscription.plan_id,
         currentPeriodEnd: new Date(subscription.current_end! * 1000),
@@ -71,4 +67,12 @@ async function handleSubCreatedOrUpdated(subscriptionId: string) {
     });
   }
 }
-async function handleSubDeleted(subscription: string) {}
+async function handleSubDeleted(subscriptionId: string) {
+  let subscription = await razorPay.subscriptions.fetch(subscriptionId);
+  await prisma.userSubscription.deleteMany({
+    where: {
+      customerId: subscription.customer_id!,
+    },
+  });
+  console.log(`Subscription with ID deleted`);
+}
