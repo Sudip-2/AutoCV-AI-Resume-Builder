@@ -44,9 +44,9 @@ const GeneralInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
   return (
     <div className="max-w-xl mx-auto px-3 py-6">
       <div className="text-center space-y-1.5">
-        <h2 className="text-2xl font-semibold">General Info</h2>
+        <h2 className="text-2xl font-semibold">Project Info</h2>
         <span className="text-muted-foreground text-sm">
-          This will not appear on your resume
+          This not appears on your resume
         </span>
       </div>
       <Form {...form}>

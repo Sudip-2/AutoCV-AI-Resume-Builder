@@ -28,6 +28,8 @@ export const personalInfoSchema = z.object({
   country: optionalStr,
   phone: optionalStr,
   email: optionalStr,
+  linkedin: optionalStr,
+  github: optionalStr,
 });
 
 export type PersonalInfoValues = z.infer<typeof personalInfoSchema>;
@@ -48,7 +50,9 @@ export const workExperienceSchema = z.object({
 
 export type workExperienceValues = z.infer<typeof workExperienceSchema>;
 
-export type workExperience = NonNullable<z.infer<typeof workExperienceSchema>["workExperience"]>[number]
+export type workExperience = NonNullable<
+  z.infer<typeof workExperienceSchema>["workExperience"]
+>[number];
 
 export const educationSchema = z.object({
   education: z
@@ -121,6 +125,7 @@ export const resumeSchema = z.object({
   ...activitySchema.shape,
   colorHex: optionalStr,
   borderStyle: optionalStr,
+  template: optionalStr,
 });
 
 export type resumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {

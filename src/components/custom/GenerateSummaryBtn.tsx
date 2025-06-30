@@ -37,7 +37,7 @@ export default function GenerateSummaryBtn({
       loading={loading}
     >
       <WandSparklesIcon className="size-4" />
-      Generate (AI)
+      Summary with AI
     </LoadingBtn>
   );
 }

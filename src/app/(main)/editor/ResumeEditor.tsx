@@ -42,11 +42,11 @@ const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
   return (
     <>
       <div className="mx-auto flex grow flex-col w-full">
-        <header className="text-center py-5 border-b px-3">
-          <h1 className="text-2xl font-semibold">Design your resume</h1>
+        <header className="text-center py-5 border-b px-3 space-y-2.5">
+          <h1 className="text-2xl font-semibold">Create your resume</h1>
           <p className="text-sm text-muted-foreground">
-            Follow the steps below to create your resume. Your progress will be
-            saved automatically.
+            Fill your details to create resume. Your progress will be
+            saved automatically after 1.5 sec.
           </p>
         </header>
         <main className="relative grow">

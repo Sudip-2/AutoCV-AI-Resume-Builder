@@ -32,7 +32,7 @@ export default function Subscription({
       );
     } catch (error) {
       console.error("Error cancelling subscription:", error);
-      toast.error("could not find subscription, try again later");
+      toast.error("Error cancelling subscription");
     } finally {
       setIsProcessing(false);
     }

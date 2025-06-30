@@ -172,7 +172,7 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
       <div className="flex justify-between gap-2">
         <span className="font-semibold">Education {index + 1}</span>
         <GripHorizontal
-          className="text-muted-foreground cursor-grab"
+          className="text-muted-foreground cursor-grab touch-none"
           {...attributes}
           {...listeners}
         />
@@ -195,7 +195,7 @@ const EducationItem = ({ id, form, index, remove }: EducationItemProps) => {
         name={`education.${index}.school`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>School</FormLabel>
+            <FormLabel>School or College</FormLabel>
             <FormControl>
               <Input {...field} />
             </FormControl>

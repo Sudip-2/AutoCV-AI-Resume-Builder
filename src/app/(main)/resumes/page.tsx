@@ -37,6 +37,7 @@ const page = async () => {
         <div className="flex flex-col sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           <CreateResumeBtn
             canCreate={canCreateResume(subLevel, totalResumes)}
+            totalResumes={totalResumes}
           />
           {resumes.map((resume) => (
             <ResumeItem resume={resume} key={resume.id} />

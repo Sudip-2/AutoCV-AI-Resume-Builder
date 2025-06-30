@@ -27,38 +27,40 @@ const Footer = ({
   )?.key;
 
   return (
-    <footer className="py-5 flex justify-between items-center border-t px-3 gap-2">
-      <div className="flex gap-3 flex-wrap-reverse">
+    <footer className="py-5 border-t px-3">
+      <div className="container mx-auto flex justify-between items-center gap-2">
+        <div className="flex gap-3 flex-wrap-reverse">
+          <Button
+            variant="outline"
+            onClick={
+              previousStep ? () => setCurrentStep(previousStep) : undefined
+            }
+            disabled={!previousStep}
+          >
+            Previous step
+          </Button>
+          <Button
+            onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
+            disabled={!nextStep}
+          >
+            Next step
+          </Button>
+        </div>
         <Button
-          variant="outline"
-          onClick={
-            previousStep ? () => setCurrentStep(previousStep) : undefined
-          }
-          disabled={!previousStep}
+          variant={"outline"}
+          size={"icon"}
+          onClick={() => setShowSmResumePrev(!showSmResumePrev)}
+          className="md:hidden"
+          title={`${showSmResumePrev ? "Show input form" : "Show resume preview"}`}
         >
-          Previous step
+          {showSmResumePrev ? <PenLineIcon /> : <FileUserIcon />}
         </Button>
-        <Button
-          onClick={nextStep ? () => setCurrentStep(nextStep) : undefined}
-          disabled={!nextStep}
-        >
-          Next step
-        </Button>
-      </div>
-      <Button
-        variant={"outline"}
-        size={"icon"}
-        onClick={() => setShowSmResumePrev(!showSmResumePrev)}
-        className="md:hidden"
-        title={`${showSmResumePrev ? "Show input form" : "Show resume preview"}`}
-      >
-        {showSmResumePrev ? <PenLineIcon /> : <FileUserIcon />}
-      </Button>
-      <div className="flex gap-3 items-center ml-2 ">
-        <Button asChild variant="outline">
-          <Link href={"/resumes"}>Close</Link>
-        </Button>
-        {isSaving && <span className="text-muted-foreground">...saving</span>}
+        <div className="flex gap-3 items-center ml-2 ">
+          <Button asChild variant="outline">
+            <Link href={"/resumes"}>Close</Link>
+          </Button>
+          {isSaving && <span className="text-muted-foreground">...saving</span>}
+        </div>
       </div>
     </footer>
   );

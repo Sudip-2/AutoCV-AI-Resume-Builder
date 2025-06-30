@@ -181,7 +181,7 @@ const ActivityItem = ({ id, form, index, remove }: ActivityItemProps) => {
       <div className="flex justify-between gap-2">
         <span className="font-semibold">Activity {index + 1}</span>
         <GripHorizontal
-          className="text-muted-foreground cursor-grab"
+          className="text-muted-foreground cursor-grab touch-none"
           {...attributes}
           {...listeners}
         />

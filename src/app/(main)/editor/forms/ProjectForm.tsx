@@ -177,7 +177,7 @@ const ProjectItem = ({ id, form, index, remove }: ProjectItemProps) => {
       <div className="flex justify-between gap-2">
         <span className="font-semibold">Project {index + 1}</span>
         <GripHorizontal
-          className="text-muted-foreground cursor-grab"
+          className="text-muted-foreground cursor-grab touch-none"
           {...attributes}
           {...listeners}
         />

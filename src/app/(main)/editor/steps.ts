@@ -13,7 +13,7 @@ export const steps: {
   component: React.ComponentType<EditorFormProps>;
   key: string;
 }[] = [
-  { title: "General info", component: GeneralInfoForm, key: "general-info" },
+  { title: "Project info", component: GeneralInfoForm, key: "project-info" },
   { title: "Personal info", component: PersonalInfoForm, key: "personal-info" },
   {
     title: "Work experience",

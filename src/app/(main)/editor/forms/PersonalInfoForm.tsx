@@ -26,6 +26,8 @@ const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
       country: resumeData.country || "",
       phone: resumeData.phone || "",
       email: resumeData.email || "",
+      linkedin: resumeData.linkedin || "",
+      github: resumeData.github || "",
     },
   });
 
@@ -64,7 +66,7 @@ const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
             name="photo"
             render={({ field: { value, ...fieldValues } }) => (
               <FormItem>
-                <FormLabel>Your Photo</FormLabel>
+                <FormLabel>Choose Photo</FormLabel>
                 <div className="flex  gap-2">
                   <FormControl>
                     <Input
@@ -83,8 +85,8 @@ const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
                     variant="outline"
                     onClick={() => {
                       fieldValues.onChange(null);
-                      if(photoInputRef.current){
-                        photoInputRef.current.value = ""
+                      if (photoInputRef.current) {
+                        photoInputRef.current.value = "";
                       }
                     }}
                   >
@@ -186,6 +188,32 @@ const PersonalInfoForm = ({ resumeData, setResumeData }: EditorFormProps) => {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input {...field} type="email" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="linkedin"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Social url 1</FormLabel>
+                <FormControl>
+                  <Input {...field} type="url" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="github"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Social url 2</FormLabel>
+                <FormControl>
+                  <Input {...field} type="url" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

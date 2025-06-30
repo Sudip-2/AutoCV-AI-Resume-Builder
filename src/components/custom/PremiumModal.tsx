@@ -62,7 +62,7 @@ export default function PremiumModal() {
             subscriptionId: response.razorpay_subscription_id,
           });
           console.log("Payment successful:", response);
-          toast.success("Payment successful!");
+          toast.success("Payment successful! subscription activation might take a minute or two");
         },
       };
       let rzp1 = new window.Razorpay(options);
@@ -73,7 +73,7 @@ export default function PremiumModal() {
       });
     } catch (error) {
       console.log("Error opening Razorpay:", error);
-      toast.error("Subscription Activating please wait....");
+      toast.error("Error opening Razorpay, please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -101,7 +101,7 @@ export default function PremiumModal() {
           </DialogHeader>
           <div className="flex">
             <div className="flex flex-col w-1/2 items-center px-4">
-              <h3 className="font-bold text-base ">AutoCV Free tier</h3>
+              <h3 className="font-bold text-base ">Free tier</h3>
               <ul className="mt-5 space-y-2">
                 {freeFeatures.map((feature, index) => (
                   <li key={index} className="flex items-center text-sm">
@@ -119,7 +119,7 @@ export default function PremiumModal() {
             </div>
             <div className="flex flex-col items-center border-l w-1/2 px-4">
               <h3 className="font-bold text-base text-blue-500">
-                AutoCV premium
+                Premium
               </h3>
               <ul className="mt-5 space-y-2">
                 {premiumFeatures.map((feature, index) => (
@@ -133,7 +133,7 @@ export default function PremiumModal() {
                 onClick={openRazorPay}
                 disabled={isProcessing}
               >
-                Get Premium{" "}
+                Premium{" "}
                 <span className="flex items-center">
                   <IndianRupeeIcon />
                   29

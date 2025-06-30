@@ -3,6 +3,7 @@ import { resumeValues } from "@/lib/validation";
 import ColorPicker from "./ColorPicker";
 import BorderStyleBtn from "./BorderStyleBtn";
 import { cn } from "@/lib/utils";
+import TempChoose from "./TempChoose";
 
 interface ResumePreviewSectionProps {
   resumeData: resumeValues;
@@ -17,7 +18,13 @@ const ResumePreviewSection = ({
 }: ResumePreviewSectionProps) => {
   return (
     <div className={cn("relative hidden w-full md:flex md:w-1/2", className)}>
-      <div className="absolute left-1 top-1 flex flex-col flex-none gap-3 lg:left-2 lg:top-2">
+      <div className="absolute right-2.5 top-1 flex flex-none gap-3 lg:right-4 lg:top-2">
+        <TempChoose
+          template={resumeData.template}
+          onchange={(design: string) => {
+            setResumeData({ ...resumeData, template: design });
+          }}
+        />
         <ColorPicker
           color={resumeData.colorHex}
           onchange={(color) => {

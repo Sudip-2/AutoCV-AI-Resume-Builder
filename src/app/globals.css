@@ -121,22 +121,26 @@
   }
 }
 
-@media print{
-  #resumePrevContent{
+@media print {
+  #resumePrevContent {
     zoom: 1 !important;
     padding: 0;
   }
 }
 
-#resumePrevContent{
+#resumePrevContent {
   font-family: Inter;
 }
 
-@page{
+@page {
   size: A4;
   margin: 0.6cm;
 }
 
-html{
+html {
   scroll-behavior: smooth;
+}
+
+.templateChooseScroll {
+  scrollbar-width: none;
 }

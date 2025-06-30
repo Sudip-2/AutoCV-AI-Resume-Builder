@@ -1399,6 +1399,7 @@ export namespace Prisma {
     photoUrl: string | null
     colorHex: string | null
     borderStyle: string | null
+    template: string | null
     summary: string | null
     firstName: string | null
     lastName: string | null
@@ -1407,6 +1408,8 @@ export namespace Prisma {
     country: string | null
     phone: string | null
     email: string | null
+    linkedin: string | null
+    github: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1419,6 +1422,7 @@ export namespace Prisma {
     photoUrl: string | null
     colorHex: string | null
     borderStyle: string | null
+    template: string | null
     summary: string | null
     firstName: string | null
     lastName: string | null
@@ -1427,6 +1431,8 @@ export namespace Prisma {
     country: string | null
     phone: string | null
     email: string | null
+    linkedin: string | null
+    github: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -1439,6 +1445,7 @@ export namespace Prisma {
     photoUrl: number
     colorHex: number
     borderStyle: number
+    template: number
     summary: number
     firstName: number
     lastName: number
@@ -1447,6 +1454,8 @@ export namespace Prisma {
     country: number
     phone: number
     email: number
+    linkedin: number
+    github: number
     skills: number
     createdAt: number
     updatedAt: number
@@ -1462,6 +1471,7 @@ export namespace Prisma {
     photoUrl?: true
     colorHex?: true
     borderStyle?: true
+    template?: true
     summary?: true
     firstName?: true
     lastName?: true
@@ -1470,6 +1480,8 @@ export namespace Prisma {
     country?: true
     phone?: true
     email?: true
+    linkedin?: true
+    github?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1482,6 +1494,7 @@ export namespace Prisma {
     photoUrl?: true
     colorHex?: true
     borderStyle?: true
+    template?: true
     summary?: true
     firstName?: true
     lastName?: true
@@ -1490,6 +1503,8 @@ export namespace Prisma {
     country?: true
     phone?: true
     email?: true
+    linkedin?: true
+    github?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -1502,6 +1517,7 @@ export namespace Prisma {
     photoUrl?: true
     colorHex?: true
     borderStyle?: true
+    template?: true
     summary?: true
     firstName?: true
     lastName?: true
@@ -1510,6 +1526,8 @@ export namespace Prisma {
     country?: true
     phone?: true
     email?: true
+    linkedin?: true
+    github?: true
     skills?: true
     createdAt?: true
     updatedAt?: true
@@ -1596,6 +1614,7 @@ export namespace Prisma {
     photoUrl: string | null
     colorHex: string
     borderStyle: string
+    template: string
     summary: string | null
     firstName: string | null
     lastName: string | null
@@ -1604,6 +1623,8 @@ export namespace Prisma {
     country: string | null
     phone: string | null
     email: string | null
+    linkedin: string | null
+    github: string | null
     skills: string[]
     createdAt: Date
     updatedAt: Date
@@ -1634,6 +1655,7 @@ export namespace Prisma {
     photoUrl?: boolean
     colorHex?: boolean
     borderStyle?: boolean
+    template?: boolean
     summary?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1642,6 +1664,8 @@ export namespace Prisma {
     country?: boolean
     phone?: boolean
     email?: boolean
+    linkedin?: boolean
+    github?: boolean
     skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1660,6 +1684,7 @@ export namespace Prisma {
     photoUrl?: boolean
     colorHex?: boolean
     borderStyle?: boolean
+    template?: boolean
     summary?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1668,6 +1693,8 @@ export namespace Prisma {
     country?: boolean
     phone?: boolean
     email?: boolean
+    linkedin?: boolean
+    github?: boolean
     skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1681,6 +1708,7 @@ export namespace Prisma {
     photoUrl?: boolean
     colorHex?: boolean
     borderStyle?: boolean
+    template?: boolean
     summary?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1689,6 +1717,8 @@ export namespace Prisma {
     country?: boolean
     phone?: boolean
     email?: boolean
+    linkedin?: boolean
+    github?: boolean
     skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -1702,6 +1732,7 @@ export namespace Prisma {
     photoUrl?: boolean
     colorHex?: boolean
     borderStyle?: boolean
+    template?: boolean
     summary?: boolean
     firstName?: boolean
     lastName?: boolean
@@ -1710,12 +1741,14 @@ export namespace Prisma {
     country?: boolean
     phone?: boolean
     email?: boolean
+    linkedin?: boolean
+    github?: boolean
     skills?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ResumeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "description" | "photoUrl" | "colorHex" | "borderStyle" | "summary" | "firstName" | "lastName" | "jobTitle" | "city" | "country" | "phone" | "email" | "skills" | "createdAt" | "updatedAt", ExtArgs["result"]["resume"]>
+  export type ResumeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "description" | "photoUrl" | "colorHex" | "borderStyle" | "template" | "summary" | "firstName" | "lastName" | "jobTitle" | "city" | "country" | "phone" | "email" | "linkedin" | "github" | "skills" | "createdAt" | "updatedAt", ExtArgs["result"]["resume"]>
   export type ResumeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workExperiences?: boolean | Resume$workExperiencesArgs<ExtArgs>
     Education?: boolean | Resume$EducationArgs<ExtArgs>
@@ -1742,6 +1775,7 @@ export namespace Prisma {
       photoUrl: string | null
       colorHex: string
       borderStyle: string
+      template: string
       summary: string | null
       firstName: string | null
       lastName: string | null
@@ -1750,6 +1784,8 @@ export namespace Prisma {
       country: string | null
       phone: string | null
       email: string | null
+      linkedin: string | null
+      github: string | null
       skills: string[]
       createdAt: Date
       updatedAt: Date
@@ -2187,6 +2223,7 @@ export namespace Prisma {
     readonly photoUrl: FieldRef<"Resume", 'String'>
     readonly colorHex: FieldRef<"Resume", 'String'>
     readonly borderStyle: FieldRef<"Resume", 'String'>
+    readonly template: FieldRef<"Resume", 'String'>
     readonly summary: FieldRef<"Resume", 'String'>
     readonly firstName: FieldRef<"Resume", 'String'>
     readonly lastName: FieldRef<"Resume", 'String'>
@@ -2195,6 +2232,8 @@ export namespace Prisma {
     readonly country: FieldRef<"Resume", 'String'>
     readonly phone: FieldRef<"Resume", 'String'>
     readonly email: FieldRef<"Resume", 'String'>
+    readonly linkedin: FieldRef<"Resume", 'String'>
+    readonly github: FieldRef<"Resume", 'String'>
     readonly skills: FieldRef<"Resume", 'String[]'>
     readonly createdAt: FieldRef<"Resume", 'DateTime'>
     readonly updatedAt: FieldRef<"Resume", 'DateTime'>
@@ -8209,6 +8248,7 @@ export namespace Prisma {
     photoUrl: 'photoUrl',
     colorHex: 'colorHex',
     borderStyle: 'borderStyle',
+    template: 'template',
     summary: 'summary',
     firstName: 'firstName',
     lastName: 'lastName',
@@ -8217,6 +8257,8 @@ export namespace Prisma {
     country: 'country',
     phone: 'phone',
     email: 'email',
+    linkedin: 'linkedin',
+    github: 'github',
     skills: 'skills',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -8392,6 +8434,7 @@ export namespace Prisma {
     photoUrl?: StringNullableFilter<"Resume"> | string | null
     colorHex?: StringFilter<"Resume"> | string
     borderStyle?: StringFilter<"Resume"> | string
+    template?: StringFilter<"Resume"> | string
     summary?: StringNullableFilter<"Resume"> | string | null
     firstName?: StringNullableFilter<"Resume"> | string | null
     lastName?: StringNullableFilter<"Resume"> | string | null
@@ -8400,6 +8443,8 @@ export namespace Prisma {
     country?: StringNullableFilter<"Resume"> | string | null
     phone?: StringNullableFilter<"Resume"> | string | null
     email?: StringNullableFilter<"Resume"> | string | null
+    linkedin?: StringNullableFilter<"Resume"> | string | null
+    github?: StringNullableFilter<"Resume"> | string | null
     skills?: StringNullableListFilter<"Resume">
     createdAt?: DateTimeFilter<"Resume"> | Date | string
     updatedAt?: DateTimeFilter<"Resume"> | Date | string
@@ -8417,6 +8462,7 @@ export namespace Prisma {
     photoUrl?: SortOrderInput | SortOrder
     colorHex?: SortOrder
     borderStyle?: SortOrder
+    template?: SortOrder
     summary?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
@@ -8425,6 +8471,8 @@ export namespace Prisma {
     country?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    linkedin?: SortOrderInput | SortOrder
+    github?: SortOrderInput | SortOrder
     skills?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8445,6 +8493,7 @@ export namespace Prisma {
     photoUrl?: StringNullableFilter<"Resume"> | string | null
     colorHex?: StringFilter<"Resume"> | string
     borderStyle?: StringFilter<"Resume"> | string
+    template?: StringFilter<"Resume"> | string
     summary?: StringNullableFilter<"Resume"> | string | null
     firstName?: StringNullableFilter<"Resume"> | string | null
     lastName?: StringNullableFilter<"Resume"> | string | null
@@ -8453,6 +8502,8 @@ export namespace Prisma {
     country?: StringNullableFilter<"Resume"> | string | null
     phone?: StringNullableFilter<"Resume"> | string | null
     email?: StringNullableFilter<"Resume"> | string | null
+    linkedin?: StringNullableFilter<"Resume"> | string | null
+    github?: StringNullableFilter<"Resume"> | string | null
     skills?: StringNullableListFilter<"Resume">
     createdAt?: DateTimeFilter<"Resume"> | Date | string
     updatedAt?: DateTimeFilter<"Resume"> | Date | string
@@ -8470,6 +8521,7 @@ export namespace Prisma {
     photoUrl?: SortOrderInput | SortOrder
     colorHex?: SortOrder
     borderStyle?: SortOrder
+    template?: SortOrder
     summary?: SortOrderInput | SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
@@ -8478,6 +8530,8 @@ export namespace Prisma {
     country?: SortOrderInput | SortOrder
     phone?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
+    linkedin?: SortOrderInput | SortOrder
+    github?: SortOrderInput | SortOrder
     skills?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8497,6 +8551,7 @@ export namespace Prisma {
     photoUrl?: StringNullableWithAggregatesFilter<"Resume"> | string | null
     colorHex?: StringWithAggregatesFilter<"Resume"> | string
     borderStyle?: StringWithAggregatesFilter<"Resume"> | string
+    template?: StringWithAggregatesFilter<"Resume"> | string
     summary?: StringNullableWithAggregatesFilter<"Resume"> | string | null
     firstName?: StringNullableWithAggregatesFilter<"Resume"> | string | null
     lastName?: StringNullableWithAggregatesFilter<"Resume"> | string | null
@@ -8505,6 +8560,8 @@ export namespace Prisma {
     country?: StringNullableWithAggregatesFilter<"Resume"> | string | null
     phone?: StringNullableWithAggregatesFilter<"Resume"> | string | null
     email?: StringNullableWithAggregatesFilter<"Resume"> | string | null
+    linkedin?: StringNullableWithAggregatesFilter<"Resume"> | string | null
+    github?: StringNullableWithAggregatesFilter<"Resume"> | string | null
     skills?: StringNullableListFilter<"Resume">
     createdAt?: DateTimeWithAggregatesFilter<"Resume"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Resume"> | Date | string
@@ -8890,6 +8947,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -8898,6 +8956,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8915,6 +8975,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -8923,6 +8984,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -8940,6 +9003,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8948,6 +9012,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8965,6 +9031,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8973,6 +9040,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -8990,6 +9059,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -8998,6 +9068,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9011,6 +9083,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9019,6 +9092,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9032,6 +9107,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -9040,6 +9116,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9563,6 +9641,7 @@ export namespace Prisma {
     photoUrl?: SortOrder
     colorHex?: SortOrder
     borderStyle?: SortOrder
+    template?: SortOrder
     summary?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -9571,6 +9650,8 @@ export namespace Prisma {
     country?: SortOrder
     phone?: SortOrder
     email?: SortOrder
+    linkedin?: SortOrder
+    github?: SortOrder
     skills?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9584,6 +9665,7 @@ export namespace Prisma {
     photoUrl?: SortOrder
     colorHex?: SortOrder
     borderStyle?: SortOrder
+    template?: SortOrder
     summary?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -9592,6 +9674,8 @@ export namespace Prisma {
     country?: SortOrder
     phone?: SortOrder
     email?: SortOrder
+    linkedin?: SortOrder
+    github?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9604,6 +9688,7 @@ export namespace Prisma {
     photoUrl?: SortOrder
     colorHex?: SortOrder
     borderStyle?: SortOrder
+    template?: SortOrder
     summary?: SortOrder
     firstName?: SortOrder
     lastName?: SortOrder
@@ -9612,6 +9697,8 @@ export namespace Prisma {
     country?: SortOrder
     phone?: SortOrder
     email?: SortOrder
+    linkedin?: SortOrder
+    github?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -10549,6 +10636,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10557,6 +10645,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10573,6 +10663,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10581,6 +10672,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10613,6 +10706,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10621,6 +10715,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10637,6 +10733,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10645,6 +10742,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10661,6 +10760,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10669,6 +10769,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10685,6 +10787,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10693,6 +10796,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10725,6 +10830,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10733,6 +10839,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10749,6 +10857,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10757,6 +10866,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10773,6 +10884,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10781,6 +10893,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10797,6 +10911,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10805,6 +10920,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10837,6 +10954,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10845,6 +10963,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10861,6 +10981,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10869,6 +10990,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10885,6 +11008,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10893,6 +11017,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10909,6 +11035,7 @@ export namespace Prisma {
     photoUrl?: string | null
     colorHex?: string
     borderStyle?: string
+    template?: string
     summary?: string | null
     firstName?: string | null
     lastName?: string | null
@@ -10917,6 +11044,8 @@ export namespace Prisma {
     country?: string | null
     phone?: string | null
     email?: string | null
+    linkedin?: string | null
+    github?: string | null
     skills?: ResumeCreateskillsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10949,6 +11078,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10957,6 +11087,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10973,6 +11105,7 @@ export namespace Prisma {
     photoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     colorHex?: StringFieldUpdateOperationsInput | string
     borderStyle?: StringFieldUpdateOperationsInput | string
+    template?: StringFieldUpdateOperationsInput | string
     summary?: NullableStringFieldUpdateOperationsInput | string | null
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10981,6 +11114,8 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedin?: NullableStringFieldUpdateOperationsInput | string | null
+    github?: NullableStringFieldUpdateOperationsInput | string | null
     skills?: ResumeUpdateskillsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

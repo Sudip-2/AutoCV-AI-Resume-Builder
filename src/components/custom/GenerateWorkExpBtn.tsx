@@ -34,7 +34,7 @@ export default function GenerateWorkExpBtn({
       <Button variant="outline" type = "button" onClick={() => setShowInputDialog(true)}>
         {" "}
         <WandSparklesIcon className="size-4" />
-        Smart fill (AI)
+        Auto fill with AI
       </Button>
       <InputDialog
         open={showInputDialog}

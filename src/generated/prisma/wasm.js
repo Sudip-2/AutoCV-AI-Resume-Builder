@@ -128,6 +128,7 @@ exports.Prisma.ResumeScalarFieldEnum = {
   photoUrl: 'photoUrl',
   colorHex: 'colorHex',
   borderStyle: 'borderStyle',
+  template: 'template',
   summary: 'summary',
   firstName: 'firstName',
   lastName: 'lastName',
@@ -136,6 +137,8 @@ exports.Prisma.ResumeScalarFieldEnum = {
   country: 'country',
   phone: 'phone',
   email: 'email',
+  linkedin: 'linkedin',
+  github: 'github',
   skills: 'skills',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

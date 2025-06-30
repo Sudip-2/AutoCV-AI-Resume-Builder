@@ -5,7 +5,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { PaletteIcon } from "lucide-react";
-import { useState } from "react";
 import { Color, ColorChangeHandler, TwitterPicker } from "react-color";
 
 interface ColorPickerProps {

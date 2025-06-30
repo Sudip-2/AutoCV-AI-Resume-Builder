@@ -65,6 +65,9 @@ export function mapToResumeValues(data: ResumeServerData): resumeValues {
       skills:data.skills||undefined,
       borderStyle:data.borderStyle,
       summary:data.summary || undefined,
-      colorHex:data.colorHex
+      colorHex:data.colorHex,
+      linkedin:data.linkedin || undefined,
+      github:data.github || undefined,
+      template:data.template || "default",
   };
 }
