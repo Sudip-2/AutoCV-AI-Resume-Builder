@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useDimensions = (containerRef: React.RefObject<HTMLElement>) => {
+const useDimensions = (containerRef: any) => {
   const [dimesnions, setDimensions] = useState({ width: 0, height: 0 });
 
   useEffect(() => {

@@ -17,7 +17,7 @@ const ResumePreview = ({
   contentRef,
 }: ResumePreviewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { width } = useDimensions<HTMLDivElement>(containerRef);
+  const { width } = useDimensions(containerRef);
   let template: Record<string, JSX.Element> = {
     default: <Default resumeData={resumeData} />,
     templateOne: <TemplateOne resumeData={resumeData} />,
