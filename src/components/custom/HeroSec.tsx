@@ -33,7 +33,7 @@ export default function HeroSec() {
           </Link>
         </Button>
         <Button variant="outline" size="lg" className="group h-11 px-8 w-full sm:w-auto" asChild>
-          <Link href="#">
+          <Link href="/analyze">
             Analyze Resume
             <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>

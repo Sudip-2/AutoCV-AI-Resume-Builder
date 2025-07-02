@@ -1,4 +1,4 @@
-import { z } from "zod"; //The z object contains all the functions and types from Zod
+import { z } from "zod";
 
 export const optionalStr = z.string().trim().optional().or(z.literal(""));
 
@@ -7,7 +7,7 @@ export const generalInfoSchema = z.object({
   description: optionalStr,
 });
 
-export type generalInfoValues = z.infer<typeof generalInfoSchema>; //z.infer extract the typescript type version from the schema Example - title: optionalStr will be string,
+export type generalInfoValues = z.infer<typeof generalInfoSchema>;
 
 export const personalInfoSchema = z.object({
   photo: z
@@ -153,3 +153,24 @@ export const generateSummarySchema = z.object({
 });
 
 export type GenerateSummaryInput = z.infer<typeof generateSummarySchema>;
+
+// Analyze part of the app
+export const analyzeResumeSchema = z.object({
+  resume: z
+    .instanceof(File, { message: "Upload required" })
+    .refine(
+      (file) =>
+        [
+          "application/pdf",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ].includes(file.type),
+      {
+        message: "PDF or DOCX only",
+      }
+    )
+    .refine((file) => file.size <= 1024 * 1024 * 2, {
+      message: "Max size is 2MB",
+    }),
+});
+
+export type analyzeResumeSchemaValues = z.infer<typeof analyzeResumeSchema>;
