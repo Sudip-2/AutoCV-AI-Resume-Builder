@@ -21,9 +21,9 @@ export default function CreateResumeBtn({
         <Link
           href={"/editor"}
           className={cn(
-            "sm:h-full sm:rounded-lg sm:border border-transparent sm:bg-secondary sm:p-3 sm:transition-colors sm:hover:border-border sm:hover:shadow-sm flex justify-center sm:items-center",
+            "sm:h-full sm:rounded-lg sm:border border-transparent sm:bg-secondary sm:p-3 sm:transition-colors sm:hover:border-border sm:hover:shadow-sm flex justify-center sm:justify-center sm:items-center",
             totalResumes! <= 0 &&
-              "sm:p-0 sm:bg-transparent sm:hover:border-transparent sm:hover:shadow-none"
+              "sm:p-0 sm:bg-transparent sm:hover:border-transparent sm:hover:shadow-none sm:justify-start"
           )}
         >
           <Button>

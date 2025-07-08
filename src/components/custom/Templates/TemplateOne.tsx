@@ -9,6 +9,11 @@ interface ResumeTemplateProps {
   resumeData: resumeValues;
 }
 
+const formatLink = (link: string) => {
+  if (!link) return "";
+  return link.includes("https://") ? link : `https://${link}`;
+};
+
 export default function Default({ resumeData }: ResumeTemplateProps) {
   return (
     <>
@@ -73,22 +78,10 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       )}
       <div className="space-y-2.5">
         <div className="space-y-1">
-          <p
-            className="text-3xl font-bold"
-            style={{
-              color: colorHex,
-            }}
-          >
+          <p className="text-3xl font-bold">
             {firstName} {lastName}
           </p>
-          <p
-            className="font-medium"
-            style={{
-              color: colorHex,
-            }}
-          >
-            {jobTitle}
-          </p>
+          <p className="font-medium">{jobTitle}</p>
         </div>
         <p className="text-xs text-gray-500">
           {city}
@@ -99,9 +92,27 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
         </p>
         <div className="text-xs text-gray-500">
           <p>
-            {linkedin}
+            {linkedin && (
+              <a
+                href={formatLink(linkedin)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-blue-600"
+              >
+                {linkedin}
+              </a>
+            )}
             {linkedin && github ? " | " : ""}
-            {github}
+            {github && (
+              <a
+                href={formatLink(github)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline hover:text-blue-600"
+              >
+                {github}
+              </a>
+            )}
           </p>
         </div>
       </div>
@@ -114,12 +125,7 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
   if (!summary) return null;
   return (
     <>
-      <div
-        className="h-1 bg-gray-200"
-        style={{
-          backgroundColor: colorHex,
-        }}
-      />
+      <div className="h-1 bg-gray-200" />
       <div className="space-y-3 break-inside-avoid">
         <p
           className="text-lg font-semibold"
@@ -146,12 +152,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <div
-        className="h-1 bg-gray-200"
-        style={{
-          backgroundColor: colorHex,
-        }}
-      />
+      <div className="h-1 bg-gray-200" />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -174,9 +175,9 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
                 </span>
                 {exp.startDate && (
                   <span
-                    style={{
-                      color: colorHex,
-                    }}
+                  // style={{
+                  //   color: colorHex,
+                  // }}
                   >
                     {formatDate(exp.startDate, "MM/yyyy/dd")} -{" "}
                     {exp.endDate
@@ -208,12 +209,7 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <div
-        className="h-1 bg-gray-200"
-        style={{
-          backgroundColor: colorHex,
-        }}
-      />
+      <div className="h-1 bg-gray-200" />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -235,11 +231,7 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
                   {proj.name}
                 </span>
                 {proj.startDate && (
-                  <span
-                    style={{
-                      color: colorHex,
-                    }}
-                  >
+                  <span>
                     {formatDate(proj.startDate, "MM/yyyy/dd")} -{" "}
                     {proj.endDate
                       ? formatDate(proj.endDate, "MM/yyyy/dd")
@@ -247,14 +239,33 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
                   </span>
                 )}
               </div>
-              <p className="text-xs font-semibold">
-                {proj.gitHubLink ? "Github: " : ""}
-                {proj.gitHubLink}
-              </p>
-              <p className="text-xs font-semibold">
-                {proj.liveLink ? "Live url: " : ""}
-                {proj.liveLink}
-              </p>
+              {proj.gitHubLink && (
+                <p className="text-xs font-semibold">
+                  GitHub:{" "}
+                  <a
+                    href={formatLink(proj.gitHubLink)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline hover:text-blue-600"
+                  >
+                    {proj.gitHubLink}
+                  </a>
+                </p>
+              )}
+              {proj.liveLink && (
+                <p className="text-xs font-semibold">
+                  Live URL:{" "}
+                  <a
+                    href={formatLink(proj.liveLink)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline hover:text-blue-600"
+                  >
+                    {proj.liveLink}
+                  </a>
+                </p>
+              )}
+
               <div className="whitespace-pre-line text-xs pt-2">
                 {proj.description}
               </div>
@@ -277,12 +288,7 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <div
-        className="h-1 bg-gray-200"
-        style={{
-          backgroundColor: colorHex,
-        }}
-      />
+      <div className="h-1 bg-gray-200" />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -305,9 +311,9 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
                 </span>
                 {edu.startDate && (
                   <span
-                    style={{
-                      color: colorHex,
-                    }}
+                  // style={{
+                  //   color: colorHex,
+                  // }}
                   >
                     {formatDate(edu.startDate, "MM/yyyy/dd")} -{" "}
                     {edu.endDate
@@ -332,12 +338,7 @@ function SkillsSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <div
-        className="h-1 bg-gray-200"
-        style={{
-          backgroundColor: colorHex,
-        }}
-      />
+      <div className="h-1 bg-gray-200" />
       <div className="break-inside-avoid space-y-3">
         <p
           className="text-lg font-semibold"
@@ -384,12 +385,7 @@ function ActivitySection({ resumeData }: ResumeSectionProps) {
 
   return (
     <>
-      <div
-        className="h-1 bg-gray-200"
-        style={{
-          backgroundColor: colorHex,
-        }}
-      />
+      <div className="h-1 bg-gray-200" />
       <div className="space-y-3">
         <p
           className="text-lg font-semibold"
@@ -412,9 +408,9 @@ function ActivitySection({ resumeData }: ResumeSectionProps) {
                 </span>
                 {act.startDate && (
                   <span
-                    style={{
-                      color: colorHex,
-                    }}
+                  // style={{
+                  //   color: colorHex,
+                  // }}
                   >
                     {formatDate(act.startDate, "MM/yyyy/dd")}
                     {act.endDate
@@ -423,7 +419,19 @@ function ActivitySection({ resumeData }: ResumeSectionProps) {
                   </span>
                 )}
               </div>
-              <p className="text-xs font-semibold">{act.certLink}</p>
+              {act.certLink && (
+                <p className="text-xs font-semibold">
+                  <a
+                    href={formatLink(act.certLink)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline hover:text-blue-600"
+                  >
+                    {act.certLink}
+                  </a>
+                </p>
+              )}
+
               <div className="whitespace-pre-line text-xs">
                 {act.description}
               </div>

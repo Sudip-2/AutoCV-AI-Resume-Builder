@@ -6,7 +6,7 @@ import EducationForm from "./forms/EducationForm";
 import SkillsForm from "./forms/SkillsForm";
 import SummaryForm from "./forms/SummaryForm";
 import ProjectForm from "./forms/ProjectForm";
-import ActivityForm from "./forms/ActivityForm"
+import ActivityForm from "./forms/ActivityForm";
 
 export const steps: {
   title: string;

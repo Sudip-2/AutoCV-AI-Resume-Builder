@@ -25,6 +25,8 @@ import {
 import deleteResume from "@/app/Actions/resumeActions";
 import LoadingBtn from "./LoadingBtn";
 import { useReactToPrint } from "react-to-print";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import Default from "@/components/custom/Templates/templateForPdf/Default";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -39,7 +41,11 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
   const wasUpdated = resume.updatedAt!;
   return (
     <div className="rounded-lg relative border border-transparent bg-secondary p-3 transition-colors hover:border-border hover:shadow-sm">
-      <MoreMenu resumeId={resume.id} onPrintClick={reactToPrint} />
+      <MoreMenu
+        resumeId={resume.id}
+        onPrintClick={reactToPrint}
+        resumeData={resume}
+      />
       <div className="space-y-5">
         <Link
           href={`editor?resumeId=${resume.id}`}
@@ -57,9 +63,8 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             {formatDate(resume.updatedAt, "MMM d, yyyy h:mm a")}
           </p>
         </Link>
-        <Link
-          href={`editor?resumeId=${resume.id}`}
-          target="_blank"
+        <div
+          onClick={() => window.open(`editor?resumeId=${resume.id}`, "_blank")}
           className="inline-block w-full"
         >
           <ResumePreview
@@ -67,7 +72,7 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
             className="overflow-hidden"
             contentRef={contentRef}
           />
-        </Link>
+        </div>
       </div>
     </div>
   );
@@ -76,12 +81,23 @@ export default function ResumeItem({ resume }: ResumeItemProps) {
 interface MoreMenuProps {
   resumeId: string;
   onPrintClick: () => void;
-  // onDownloadClick: () => void;
+  resumeData: ResumeServerData;
 }
 
-function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
-  const [showDeleteConformation, setShowDeleteConformation] = useState(false);
+const mappedComp: {
+  name: string;
+  component: any;
+}[] = [
+  { name: "default", component: Default },
+  // { name: "templateOne", component: Templa},
+  // { name: "templateTwo", component: },
+];
 
+function MoreMenu({ resumeId, onPrintClick, resumeData }: MoreMenuProps) {
+  const [showDeleteConformation, setShowDeleteConformation] = useState(false);
+  const ResumeTemplateTypeComp = mappedComp.find(
+    (temp) => temp.name === resumeData.template
+  )?.component;
   return (
     <>
       <DropdownMenu>
@@ -101,6 +117,27 @@ function MoreMenu({ resumeId, onPrintClick }: MoreMenuProps) {
           >
             <Trash2 className="size-4" />
             Delete
+          </DropdownMenuItem>
+          <DropdownMenuItem className="flex gap-3 items-center">
+            <PDFDownloadLink
+              document={
+                <ResumeTemplateTypeComp
+                  resumeData={mapToResumeValues(resumeData)}
+                />
+              }
+              fileName={resumeData.title || "resume.pdf"}
+            >
+              {({ loading }) =>
+                loading ? (
+                  "Loading PDF..."
+                ) : (
+                  <div className="flex gap-3 items-center">
+                    <DownloadIcon className="size-4" />
+                    Download
+                  </div>
+                )
+              }
+            </PDFDownloadLink>
           </DropdownMenuItem>
           <DropdownMenuItem
             className="flex gap-3 items-center"

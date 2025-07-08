@@ -12,4 +12,12 @@ export default function canCreateResume(
   return currResCount < maxResumes;
 }
 
+export function canUsePremiumTemplates(subsLevel: subScriptionLevel): boolean {
+  if (subsLevel === "free") {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // need to add check for additional templates for free users

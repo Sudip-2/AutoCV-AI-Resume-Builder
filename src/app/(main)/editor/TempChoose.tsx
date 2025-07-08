@@ -11,13 +11,22 @@ import Image from "next/image";
 interface TempChooseProps {
   template: string | undefined;
   onchange: (design: string) => void;
+  isDisabledBool: boolean;
 }
 
-export default function TempChoose({ template, onchange }: TempChooseProps) {
-  let templates = [
-    { name: "default", img: "/default.png" },
-    { name: "templateOne", img: "/templateOne.png" },
+export default function TempChoose({
+  template,
+  onchange,
+  isDisabledBool,
+}: TempChooseProps) {
+  const templates = [
+    { name: "default", img: "/default.png", title: "Default" },
+    { name: "templateOne", img: "/templateOne.png", title: "Template 1" },
   ];
+  const premiumTemplates = [
+    { name: "templateTwo", img: "/premiumOne.png", title: "Premium 1" },
+  ];
+  const isDisabled = isDisabledBool; // Replace with actual logic to determine if the button should be disabled
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -62,7 +71,9 @@ export default function TempChoose({ template, onchange }: TempChooseProps) {
                       fill
                     />
                   </div>
-                  <span className="text-xs line-clamp-1 my-1">{temp.name}</span>
+                  <span className="text-xs line-clamp-1 my-1">
+                    {temp.title}
+                  </span>
                 </div>
               );
             })}
@@ -70,7 +81,7 @@ export default function TempChoose({ template, onchange }: TempChooseProps) {
           {/* premium templates */}
           <h3 className="text-center">Premium templates</h3>
           <div className="gap-3 grid grid-cols-2 sm:grid-cols-3 mt-2">
-            {templates.map((temp, index) => {
+            {premiumTemplates.map((temp, index) => {
               return (
                 <div
                   className={cn(
@@ -78,7 +89,7 @@ export default function TempChoose({ template, onchange }: TempChooseProps) {
                     template === temp.name && "text-blue-500"
                   )}
                   key={index}
-                  onClick={() => onchange(temp.name)}
+                  onClick={() => (isDisabled ? null : onchange(temp.name))}
                 >
                   <div
                     className={cn(
@@ -86,16 +97,18 @@ export default function TempChoose({ template, onchange }: TempChooseProps) {
                       template === temp.name && "text-blue-500"
                     )}
                     key={index}
-                    onClick={() => onchange(temp.name)}
+                    onClick={() => (isDisabled ? null : onchange(temp.name))}
                   >
                     <Image
-                      src={temp.img}
+                      src={isDisabled ? "/hazyBlur.jpg" : temp.img}
                       alt={"template image"}
                       className="object-cover"
                       fill
                     />
                   </div>
-                  <span className="text-xs line-clamp-1 my-1">{temp.name}</span>
+                  <span className="text-xs line-clamp-1 my-1">
+                    {temp.title}
+                  </span>
                 </div>
               );
             })}

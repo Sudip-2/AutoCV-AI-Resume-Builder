@@ -3,6 +3,8 @@ import ResumeEditor from "./ResumeEditor";
 import prisma from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { resumeDataInclude } from "@/lib/types";
+import { getUserSubscriptionLevel } from "@/lib/subscription";
+import { canUsePremiumTemplates } from "@/lib/permission";
 
 interface PageProps {
   searchParams: Promise<{ resumeId?: string }>;
@@ -28,7 +30,14 @@ const page = async ({ searchParams }: PageProps) => {
       })
     : null;
 
-  return <ResumeEditor resumeToEdit = {resumeToEdit}/>;
+  const subSriptionLevel = await getUserSubscriptionLevel(userId);
+
+  return (
+    <ResumeEditor
+      resumeToEdit={resumeToEdit}
+      canUserPremTempl={!canUsePremiumTemplates(subSriptionLevel)}
+    />
+  );
 };
 
 export default page;

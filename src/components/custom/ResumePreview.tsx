@@ -4,6 +4,7 @@ import { resumeValues } from "@/lib/validation";
 import { JSX, useRef } from "react";
 import Default from "./Templates/Default";
 import TemplateOne from "./Templates/TemplateOne";
+import TemplateTwo from "./Templates/TemplateTwo";
 
 interface ResumePreviewProps {
   resumeData: resumeValues;
@@ -21,6 +22,7 @@ const ResumePreview = ({
   let template: Record<string, JSX.Element> = {
     default: <Default resumeData={resumeData} />,
     templateOne: <TemplateOne resumeData={resumeData} />,
+    templateTwo: <TemplateTwo resumeData={resumeData} />,
   };
   return (
     <div

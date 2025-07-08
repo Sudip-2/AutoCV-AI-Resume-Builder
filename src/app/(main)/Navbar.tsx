@@ -7,9 +7,15 @@ import { CreditCard } from "lucide-react";
 import { ModeToggle } from "@/components/custom/ToggleBtn";
 import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   return (
     <header className="shadow-sm">
       <div className="max-w-7xl 2xl:max-w-[1536px] p-3 mx-auto flex justify-between items-center w-full">
@@ -24,7 +30,11 @@ const Navbar = () => {
           <ModeToggle />
           <UserButton
             appearance={{
-              baseTheme: theme === "dark" || "system" ? dark : undefined,
+              baseTheme:
+                mounted && (theme === "dark" || theme === "system")
+                  ? dark
+                  : undefined,
+
               elements: {
                 avatarBox: {
                   width: 32,

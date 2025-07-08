@@ -9,6 +9,11 @@ interface ResumeTemplateProps {
   resumeData: resumeValues;
 }
 
+const formatLink = (link: string) => {
+  if (!link) return "";
+  return link.includes("https://") ? link : `https://${link}`;
+};
+
 export default function Default({ resumeData }: ResumeTemplateProps) {
   return (
     <>
@@ -73,22 +78,10 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
       )}
       <div className={cn("space-y-2.5", !photoSrc && "text-center")}>
         <div className="space-y-1">
-          <p
-            className="text-3xl font-bold"
-            style={{
-              color: colorHex,
-            }}
-          >
+          <p className="text-3xl font-bold">
             {firstName} {lastName}
           </p>
-          <p
-            className="font-medium"
-            style={{
-              color: colorHex,
-            }}
-          >
-            {jobTitle}
-          </p>
+          <p className="font-medium">{jobTitle}</p>
         </div>
         <p className="text-xs text-gray-500">
           {city}
@@ -99,31 +92,19 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
         </p>
         <div className="text-xs text-gray-500">
           <p>
-            <span
-              onClick={() =>
-                window.open(
-                  linkedin?.includes("https://")
-                    ? linkedin
-                    : `https://${linkedin}`,
-                  "_blank"
-                )
-              }
-              className="hover:cursor-pointer hover:underline"
+            <a
+              href={formatLink(linkedin ? linkedin : "")}
+              className=" hover:cursor-pointer hover:underline"
             >
               {linkedin}
-            </span>
+            </a>
             {linkedin && github ? " | " : ""}
-            <span
-              onClick={() =>
-                window.open(
-                  github?.includes("https://") ? github : `https://${github}`,
-                  "_blank"
-                )
-              }
-              className="hover:cursor-pointer hover:underline"
+            <a
+              href={formatLink(github ? github : "")}
+              className=" hover:cursor-pointer hover:underline"
             >
               {github}
-            </span>
+            </a>
           </p>
         </div>
       </div>
@@ -177,22 +158,24 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               <div className="flex items-center justify-between text-sm font-semibold">
                 <span
                   className="text-[16.5px]"
-                  style={{
-                    color: colorHex,
-                  }}
+                  // style={{
+                  //   color: colorHex,
+                  // }}
                 >
                   {exp.company}
                 </span>
                 {exp.startDate && (
                   <span>
-                    {formatDate(exp.startDate, "MM/yyyy/dd")} -{" "}
+                    {formatDate(exp.startDate, "yyyy-MM-dd")} –{" "}
                     {exp.endDate
-                      ? formatDate(exp.endDate, "MM/yyyy/dd")
+                      ? formatDate(exp.endDate, "yyyy-MM-dd")
                       : "Present"}
                   </span>
                 )}
               </div>
-              <p className="text-xs font-semibold pl-3">{exp.position}</p>
+              <p className="text-xs font-semibold text-gray-800 pl-3">
+                {exp.position}
+              </p>
               <div className="whitespace-pre-line text-xs pl-6">
                 {exp.description}
               </div>
@@ -238,45 +221,32 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
                 </span>
                 {proj.startDate && (
                   <span>
-                    {formatDate(proj.startDate, "MM/yyyy/dd")} -{" "}
+                    {formatDate(proj.startDate, "yyyy-MM-dd")} –{" "}
                     {proj.endDate
-                      ? formatDate(proj.endDate, "MM/yyyy/dd")
+                      ? formatDate(proj.endDate, "yyyy-MM-dd")
                       : "Present"}
                   </span>
                 )}
               </div>
               <p className="text-xs font-semibold pl-3">
                 {proj.gitHubLink ? "Github: " : ""}
-                <span
+                <a
+                  href={formatLink(proj.gitHubLink ? proj.gitHubLink : "")}
                   className=" hover:cursor-pointer hover:underline"
-                  onClick={() =>
-                    window.open(
-                      proj.gitHubLink?.includes("https")
-                        ? proj.gitHubLink
-                        : `https://${proj.gitHubLink}`,
-                      "_blank"
-                    )
-                  }
                 >
                   {proj.gitHubLink}
-                </span>
+                </a>
               </p>
               <p className="text-xs font-semibold pl-3 ">
                 {proj.liveLink ? "Live url: " : ""}
-                <span
+                <a
+                  href={formatLink(proj.liveLink ? proj.liveLink : "")}
                   className=" hover:cursor-pointer hover:underline"
-                  onClick={() =>
-                    window.open(
-                      proj.liveLink?.includes("https")
-                        ? proj.liveLink
-                        : `https://${proj.liveLink}`,
-                      "_blank"
-                    )
-                  }
                 >
                   {proj.liveLink}
-                </span>
+                </a>
               </p>
+
               <div className="whitespace-pre-line text-xs pt-1 pl-3">
                 {proj.description}
               </div>
@@ -312,18 +282,12 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1 pl-3">
               <div className="flex items-center justify-between text-sm font-semibold">
-                <span
-                  style={{
-                    color: colorHex,
-                  }}
-                >
-                  {edu.degree}
-                </span>
+                <span>{edu.degree}</span>
                 {edu.startDate && (
                   <span>
-                    {formatDate(edu.startDate, "MM/yyyy/dd")} -{" "}
+                    {formatDate(edu.startDate, "yyyy-MM-dd")} –{" "}
                     {edu.endDate
-                      ? formatDate(edu.endDate, "MM/yyyy/dd")
+                      ? formatDate(edu.endDate, "yyyy-MM-dd")
                       : "Present"}
                   </span>
                 )}
@@ -383,28 +347,22 @@ function ActivitySection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1 pl-3">
               <div className="flex items-center justify-between text-sm font-semibold">
-                <span
-                  style={{
-                    color: colorHex,
-                  }}
-                >
-                  {act.name}
-                </span>
+                <span>{act.name}</span>
                 {act.startDate && (
                   <span>
-                    {formatDate(act.startDate, "MM/yyyy/dd")}
+                    {formatDate(act.startDate, "yyyy-MM-dd")}
                     {act.endDate
-                      ? `${" - "}${formatDate(act.endDate, "MM/yyyy/dd")}`
+                      ? `${" – "}${formatDate(act.endDate, "yyyy-MM-dd")}`
                       : ""}
                   </span>
                 )}
               </div>
-              <p
-                className="text-xs font-semibold pl-3 hover:cursor-pointer hover:underline"
-                onClick={() => window.open(act.certLink, "_blank")}
+              <a
+                href={formatLink(act.certLink ? act.certLink : "")}
+                className=" text-xs font-semibold pl-3 hover:cursor-pointer hover:underline"
               >
                 {act.certLink}
-              </p>
+              </a>
               <div className="whitespace-pre-line text-xs mt-1 pl-3">
                 {act.description}
               </div>

@@ -9,21 +9,24 @@ interface ResumePreviewSectionProps {
   resumeData: resumeValues;
   setResumeData: (data: resumeValues) => void;
   className?: string;
+  canUserPremTempl?: boolean;
 }
 
 const ResumePreviewSection = ({
   resumeData,
   setResumeData,
   className,
+  canUserPremTempl,
 }: ResumePreviewSectionProps) => {
   return (
     <div className={cn("relative hidden w-full md:flex md:w-1/2", className)}>
       <div className="absolute right-2.5 top-1 flex flex-none gap-3 lg:right-4 lg:top-2">
         <TempChoose
-          template={resumeData.template}
+          template={resumeData.template ? resumeData.template : "default"}
           onchange={(design: string) => {
             setResumeData({ ...resumeData, template: design });
           }}
+          isDisabledBool={canUserPremTempl!}
         />
         <ColorPicker
           color={resumeData.colorHex}

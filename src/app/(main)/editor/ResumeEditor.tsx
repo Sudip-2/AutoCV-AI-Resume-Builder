@@ -13,9 +13,13 @@ import { mapToResumeValues, ResumeServerData } from "@/lib/types";
 
 interface ResumeEditorProps {
   resumeToEdit: ResumeServerData | null;
+  canUserPremTempl?: boolean;
 }
 
-const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
+const ResumeEditor = ({
+  resumeToEdit,
+  canUserPremTempl,
+}: ResumeEditorProps) => {
   const searchParams = useSearchParams();
   const currentStep = searchParams.get("step") || steps[0].key;
   const [resumeData, setResumeData] = useState<resumeValues>(
@@ -45,8 +49,8 @@ const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
         <header className="text-center py-5 border-b px-3 space-y-2.5">
           <h1 className="text-2xl font-semibold">Create your resume</h1>
           <p className="text-sm text-muted-foreground">
-            Fill your details to create resume. Your progress will be
-            saved automatically after 1.5 sec.
+            Fill your details to create resume. Your progress will be saved
+            automatically after 1.5 sec.
           </p>
         </header>
         <main className="relative grow">
@@ -75,6 +79,7 @@ const ResumeEditor = ({ resumeToEdit }: ResumeEditorProps) => {
               resumeData={resumeData}
               setResumeData={setResumeData}
               className={cn(showSmResumePrev && "flex")}
+              canUserPremTempl={canUserPremTempl}
             />
           </div>
         </main>
