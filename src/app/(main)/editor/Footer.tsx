@@ -56,10 +56,9 @@ const Footer = ({
           {showSmResumePrev ? <PenLineIcon /> : <FileUserIcon />}
         </Button>
         <div className="flex gap-3 items-center ml-2 ">
-          <Button asChild variant="outline">
-            <Link href={"/resumes"}>Close</Link>
+          <Button asChild variant="outline" disabled={isSaving}>
+            <Link href={"/resumes"}>{isSaving ? "...saving" : "Close"}</Link>
           </Button>
-          {isSaving && <span className="text-muted-foreground">...saving</span>}
         </div>
       </div>
     </footer>

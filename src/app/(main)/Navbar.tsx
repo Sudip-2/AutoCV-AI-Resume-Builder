@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <header className="shadow-sm">
       <div className="max-w-7xl 2xl:max-w-[1536px] p-3 mx-auto flex justify-between items-center w-full">
-        <Link href={"/resumes"} className="flex items-center gap-2">
+        <Link href={"/"} className="flex items-center gap-2">
           <div className="h-8 w-8 relative">
             <Image src={logo} alt="logo" fill className="rounded-full" />
           </div>

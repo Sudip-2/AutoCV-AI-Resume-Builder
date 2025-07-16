@@ -27,6 +27,8 @@ import LoadingBtn from "./LoadingBtn";
 import { useReactToPrint } from "react-to-print";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import Default from "@/components/custom/Templates/templateForPdf/Default";
+import TemplateOne from "./Templates/templateForPdf/TemplateOne";
+import TemplateTwo from "./Templates/templateForPdf/TemplateTwo";
 
 interface ResumeItemProps {
   resume: ResumeServerData;
@@ -89,8 +91,8 @@ const mappedComp: {
   component: any;
 }[] = [
   { name: "default", component: Default },
-  // { name: "templateOne", component: Templa},
-  // { name: "templateTwo", component: },
+  { name: "templateOne", component: TemplateOne },
+  { name: "templateTwo", component: TemplateTwo },
 ];
 
 function MoreMenu({ resumeId, onPrintClick, resumeData }: MoreMenuProps) {

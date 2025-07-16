@@ -1,4 +1,3 @@
-// import pdfParse from "pdf-parse";
 import mammoth from "mammoth";
 import gemini from "@/lib/gemini";
 
@@ -13,64 +12,71 @@ score : <A number between 0 to 100, representing the resume’s ATS compatibilit
 strongPoints : <an optimized strongPoints in bullet format, in bullet points only use this • style of bullet, don't need to add headings, just the points>
 weakPoints : <an optimized weakPoints in bullet format, in bullet points only use this • style of bullet,don't need to add headings, just the points>
 recommendations: <an optimized recommendations in bullet format, in bullet points only use this • style of bullet, don't need to add headings, just the points>
-`;
+.if it's not possible to analyze the resume, return score as 0 and include the reason in weakPoints why it can't be analyzed.`;
   if (!resumeFile) {
     return new Response("No file uploaded", { status: 400 });
   }
   const bytes = await resumeFile.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  // if (resumeFile.type === "application/pdf") {
-  //   const dataFromFile = await pdfParse(buffer);
-  //   const userMessage = `Here is the resume text: ${dataFromFile.text}`;
-  //   const response = await gemini.models.generateContent({
-  //     model: "gemini-2.0-flash",
-  //     contents: userMessage,
-  //     config: {
-  //       systemInstruction: aiRole,
-  //     },
-  //   });
-  //   if (!response.text) {
-  //     return new Response("Failed to analyze resume", { status: 500 });
-  //   }
-  //   console.log(response.text);
-  //   const score = response.text.match(/score\s*:\s*(\d+)/i)?.[1] || "";
+  if (resumeFile.type === "application/pdf") {
+    const data = await fetch("https://backend-repo-lac.vercel.app/pdf-anaylyse", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/octet-stream",
+      },
+      body: buffer,
+    });
+    const dataFromFile = JSON.parse(await data.text());
+    console.log(dataFromFile);
+    const userMessage = `Here is the resume text: ${dataFromFile}`;
+    const response = await gemini.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: userMessage,
+      config: {
+        systemInstruction: aiRole,
+      },
+    });
+    if (!response.text) {
+      return new Response("Failed to analyze resume", { status: 500 });
+    }
+    console.log(response.text);
+    const score = response.text.match(/score\s*:\s*(\d+)/i)?.[1] || "";
 
-  //   const strongPointsBlock =
-  //     response.text.match(
-  //       /strongPoints\s*:\s*([\s\S]*?)weakPoints\s*:/i
-  //     )?.[1] || "";
+    const strongPointsBlock =
+      response.text.match(
+        /strongPoints\s*:\s*([\s\S]*?)weakPoints\s*:/i
+      )?.[1] || "";
 
-  //   const weakPointsBlock =
-  //     response.text.match(
-  //       /weakPoints\s*:\s*([\s\S]*?)recommendations\s*:/i
-  //     )?.[1] || "";
+    const weakPointsBlock =
+      response.text.match(
+        /weakPoints\s*:\s*([\s\S]*?)recommendations\s*:/i
+      )?.[1] || "";
 
-  //   const recommendationsBlock =
-  //     response.text.match(/recommendations\s*:\s*([\s\S]*)/i)?.[1] || "";
+    const recommendationsBlock =
+      response.text.match(/recommendations\s*:\s*([\s\S]*)/i)?.[1] || "";
 
-  //   // Matches lines starting with bullet points using • or *
-  //   const bulletRegex = /^[•*]\s+(.*)$/gm;
+    // Matches lines starting with bullet points using • or *
+    const bulletRegex = /^[•*]\s+(.*)$/gm;
 
-  //   function extractBullets(textBlock: string) {
-  //     const points = [];
-  //     let match;
-  //     while ((match = bulletRegex.exec(textBlock)) !== null) {
-  //       points.push(match[1].trim());
-  //     }
-  //     return points;
-  //   }
+    function extractBullets(textBlock: string) {
+      const points = [];
+      let match;
+      while ((match = bulletRegex.exec(textBlock)) !== null) {
+        points.push(match[1].trim());
+      }
+      return points;
+    }
 
-  //   const jsonResponse = {
-  //     score: parseInt(score),
-  //     strongPoints: extractBullets(strongPointsBlock),
-  //     weakPoints: extractBullets(weakPointsBlock),
-  //     recommendations: extractBullets(recommendationsBlock),
-  //   };
-  //   console.log(jsonResponse);
-  //   return new Response(JSON.stringify(jsonResponse), { status: 200 });
-  // } else 
-  if (
+    const jsonResponse = {
+      score: parseInt(score),
+      strongPoints: extractBullets(strongPointsBlock),
+      weakPoints: extractBullets(weakPointsBlock),
+      recommendations: extractBullets(recommendationsBlock),
+    };
+    console.log(jsonResponse);
+    return new Response(JSON.stringify(jsonResponse), { status: 200 });
+  } else if (
     resumeFile.type ===
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   ) {

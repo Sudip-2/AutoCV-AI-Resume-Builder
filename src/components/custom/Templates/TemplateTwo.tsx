@@ -2,7 +2,6 @@
 
 import { resumeValues } from "@/lib/validation";
 import { formatDate } from "date-fns";
-import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleBtn";
@@ -11,9 +10,14 @@ interface ResumeTemplateProps {
   resumeData: resumeValues;
 }
 
+const formatLink = (link: string) => {
+  if (!link) return "";
+  return link.includes("https://") ? link : `https://${link}`;
+};
+
 export default function TemplateTwo({ resumeData }: ResumeTemplateProps) {
   return (
-    <div className="space-y-10 p-6">
+    <div className="space-y-6 p-4">
       <Header resumeData={resumeData} />
       <SectionWrapper>
         <Summary resumeData={resumeData} />
@@ -103,7 +107,19 @@ function Header({ resumeData }: { resumeData: resumeValues }) {
           {[phone, email].filter(Boolean).join(" • ")}
         </p>
         <p className="text-xs text-gray-500">
-          {[linkedin, github].filter(Boolean).join(" | ")}
+          <a
+            href={formatLink(linkedin ? linkedin : "")}
+            className=" hover:cursor-pointer hover:underline"
+          >
+            {linkedin}
+          </a>
+          {linkedin && github ? " | " : ""}
+          <a
+            href={formatLink(github ? github : "")}
+            className=" hover:cursor-pointer hover:underline"
+          >
+            {github}
+          </a>
         </p>
       </div>
       <hr className="border-t-2 border-gray-200" />
@@ -135,10 +151,14 @@ function WorkExperience({ resumeData }: ResumeTemplateProps) {
         <div key={i} className="text-sm">
           <div className="flex justify-between font-semibold text-gray-800">
             <span>{exp.position}</span>
-            <span className="text-gray-600">
-              {exp.startDate ? formatDate(exp.startDate, "MM/yyyy") : ""} –{" "}
-              {exp.endDate ? formatDate(exp.endDate, "MM/yyyy") : "Present"}
-            </span>
+            {exp.startDate && (
+              <span className="text-gray-600">
+                {exp.startDate ? formatDate(exp.startDate, "yyyy-MM-dd") : ""} –{" "}
+                {exp.endDate
+                  ? formatDate(exp.endDate, "yyyy-MM-dd")
+                  : "Present"}
+              </span>
+            )}
           </div>
           <p className="text-xs font-semibold text-gray-600">{exp.company}</p>
           <p className="text-xs text-gray-700 whitespace-pre-line">
@@ -161,17 +181,34 @@ function Projects({ resumeData }: ResumeTemplateProps) {
         <div key={i} className="text-sm">
           <div className="flex justify-between font-semibold text-gray-800">
             <span>{proj.name}</span>
-            <span className="text-gray-600">
-              {proj.startDate ? formatDate(proj.startDate, "MM/yyyy") : ""} –{" "}
-              {proj.endDate ? formatDate(proj.endDate, "MM/yyyy") : "Present"}
-            </span>
+            {proj.startDate && (
+              <span className="text-gray-600">
+                {proj.startDate ? formatDate(proj.startDate, "yyyy-MM-dd") : ""}{" "}
+                –{" "}
+                {proj.endDate
+                  ? formatDate(proj.endDate, "yyyy-MM-dd")
+                  : "Present"}
+              </span>
+            )}
           </div>
-          {proj.gitHubLink && (
-            <p className="text-xs font-semibold">GitHub: {proj.gitHubLink}</p>
-          )}
-          {proj.liveLink && (
-            <p className="text-xs font-semibold">Live URL: {proj.liveLink}</p>
-          )}
+          <p className="text-xs font-semibold">
+            {proj.gitHubLink ? "Github: " : ""}
+            <a
+              href={formatLink(proj.gitHubLink ? proj.gitHubLink : "")}
+              className=" hover:cursor-pointer hover:underline"
+            >
+              {proj.gitHubLink}
+            </a>
+          </p>
+          <p className="text-xs font-semibold">
+            {proj.liveLink ? "Live url: " : ""}
+            <a
+              href={formatLink(proj.liveLink ? proj.liveLink : "")}
+              className=" hover:cursor-pointer hover:underline"
+            >
+              {proj.liveLink}
+            </a>
+          </p>
           <p className="text-xs text-gray-700 whitespace-pre-line pt-1">
             {proj.description}
           </p>
@@ -193,8 +230,8 @@ function Education({ resumeData }: ResumeTemplateProps) {
           <div className="flex justify-between font-semibold text-gray-800">
             <span>{edu.degree}</span>
             <span className="text-gray-600">
-              {edu.startDate ? formatDate(edu.startDate, "MM/yyyy") : ""} –{" "}
-              {edu.endDate ? formatDate(edu.endDate, "MM/yyyy") : "Present"}
+              {edu.startDate ? formatDate(edu.startDate, "yyyy-MM-dd") : ""} –{" "}
+              {edu.endDate ? formatDate(edu.endDate, "yyyy-MM-dd") : "Present"}
             </span>
           </div>
           <p className="text-xs font-semibold text-gray-600">{edu.school}</p>
@@ -209,27 +246,17 @@ function Skills({ resumeData }: ResumeTemplateProps) {
   if (!skills?.length) return null;
 
   return (
-    <Section title="Skills" colorHex={colorHex!}>
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill, index) => (
-          <Badge
-            key={index}
-            className="text-white text-xs"
-            style={{
-              backgroundColor: colorHex,
-              borderRadius:
-                borderStyle === BorderStyles.SQUARE
-                  ? "0px"
-                  : borderStyle === BorderStyles.CIRCLE
-                    ? "9999px"
-                    : "8px",
-            }}
-          >
-            {skill}
-          </Badge>
-        ))}
-      </div>
-    </Section>
+    <div className="break-inside-avoid space-y-3">
+      <p
+        className="text-xl font-semibold"
+        style={{
+          color: colorHex,
+        }}
+      >
+        Skills
+      </p>
+      <p className="text-sm">{skills.join(", ")}</p>
+    </div>
   );
 }
 
@@ -245,15 +272,16 @@ function Activities({ resumeData }: ResumeTemplateProps) {
           <div className="flex justify-between font-semibold text-gray-800">
             <span>{act.name}</span>
             <span className="text-gray-600">
-              {act.startDate ? formatDate(act.startDate, "MM/yyyy") : ""}{" "}
-              {act.endDate ? `- ${formatDate(act.endDate, "MM/yyyy")}` : ""}
+              {act.startDate ? formatDate(act.startDate, "yyyy-MM-dd") : ""}{" "}
+              {act.endDate ? `– ${formatDate(act.endDate, "yyyy-MM-dd")}` : ""}
             </span>
           </div>
-          {act.certLink && (
-            <p className="text-xs font-semibold text-gray-600">
-              {act.certLink}
-            </p>
-          )}
+          <a
+            href={formatLink(act.certLink ? act.certLink : "")}
+            className=" text-xs font-semibold hover:cursor-pointer hover:underline"
+          >
+            {act.certLink}
+          </a>
           <p className="text-xs text-gray-700 whitespace-pre-line">
             {act.description}
           </p>

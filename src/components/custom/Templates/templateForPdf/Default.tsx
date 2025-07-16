@@ -1,54 +1,167 @@
+import { resumeValues } from "@/lib/validation";
 import {
   Document,
   Page,
   Text,
   View,
+  Image as PDFImage,
   StyleSheet,
-  Image,
   Link,
 } from "@react-pdf/renderer";
-import { resumeValues } from "@/lib/validation";
-import { useEffect, useState } from "react";
 import { formatDate } from "date-fns";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleBtn";
 
-// --- Helper Functions ---
+interface ResumeTemplateProps {
+  resumeData: resumeValues;
+}
+
 const formatLink = (link: string) => {
   if (!link) return "";
   return link.includes("https://") ? link : `https://${link}`;
 };
 
-// --- Interfaces ---
-interface ResumeTemplateProps {
-  resumeData: resumeValues;
-}
+export default function Default({ resumeData }: ResumeTemplateProps) {
+  const styles = StyleSheet.create({
+    page: {
+      padding: 30,
+      fontFamily: "Helvetica",
+      fontSize: 12,
+    },
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 12,
+    },
+    section: {
+      marginBottom: 10,
+      paddingTop: 2,
+    },
+    sectionTitle: {
+      fontSize: 16,
+      fontWeight: "bold",
+      paddingLeft: 10,
+      paddingVertical: 3,
+      borderLeftWidth: 2,
+      borderTopWidth: 2,
+      borderRightWidth: 2,
+      borderBottomWidth: 2,
+      borderColor: "black", 
+      borderStyle: "solid",
+      marginBottom: 8,
+      color: resumeData.colorHex || "#000000",
+      display: "flex",
+      alignItems: "center",
+    },
+    headerContainer: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 20,
+      marginBottom: 20,
+    },
+    headerInfo: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 5,
+      textAlign: resumeData.photo ? "left" : "center",
+      alignSelf: resumeData.photo ? "flex-start" : "center",
+      width: resumeData.photo ? "auto" : "100%",
+    },
+    name: {
+      fontSize: 24,
+      fontWeight: "bold",
+    },
+    jobTitle: {
+      fontSize: 14,
+      marginBottom: 4,
+    },
+    contactInfo: {
+      fontSize: 10,
+      color: "gray",
+    },
+    linksContainer: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: resumeData.photo ? "flex-start" : "center",
+    },
+    profileImage: {
+      width: 100,
+      height: 100,
+      objectFit: "cover",
+      borderRadius:
+        resumeData.borderStyle === BorderStyles.SQUARE
+          ? 0
+          : resumeData.borderStyle === BorderStyles.CIRCLE
+            ? 50
+            : 10,
+    },
+    content: {
+      fontSize: 10,
+      marginLeft: 10,
+    },
+    expItem: {
+      marginBottom: 6,
+      paddingBottom: 1,
+      marginTop: 2,
+    },
+    itemHeader: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      fontSize: 12,
+      fontWeight: "bold",
+      marginBottom: 2,
+    },
+    itemSubHeader: {
+      fontSize: 10,
+      fontWeight: "bold",
+      marginBottom: 2,
+      paddingLeft: 10,
+    },
+    description: {
+      fontSize: 9,
+      paddingLeft: 15,
+      marginTop: 2,
+    },
+    linkText: {
+      fontSize: 9,
+      paddingLeft: 10,
+      color: "#333333",
+      textDecoration: "underline",
+    },
+    skills: {
+      fontSize: 10,
+      paddingLeft: 10,
+    },
+    break: {
+      height: 1,
+    },
+  });
 
-interface ResumeSectionProps {
-  resumeData: resumeValues;
-}
-
-// --- Main PDF Document Component ---
-export default function DefaultPdf({ resumeData }: ResumeTemplateProps) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         <View style={styles.container}>
-          <PersonalInfoHeader resumeData={resumeData} />
-          <SummarySection resumeData={resumeData} />
-          <WorkExperienceSection resumeData={resumeData} />
-          <EducationSection resumeData={resumeData} />
-          <ProjectSection resumeData={resumeData} />
-          <SkillsSection resumeData={resumeData} />
-          <ActivitySection resumeData={resumeData} />
+          <PersonalInfoHeader resumeData={resumeData} styles={styles} />
+          <SummarySection resumeData={resumeData} styles={styles} />
+          <WorkExperienceSection resumeData={resumeData} styles={styles} />
+          <EducationSection resumeData={resumeData} styles={styles} />
+          <ProjectSection resumeData={resumeData} styles={styles} />
+          <SkillsSection resumeData={resumeData} styles={styles} />
+          <ActivitySection resumeData={resumeData} styles={styles} />
         </View>
       </Page>
     </Document>
   );
 }
 
-// --- PDF Section Components ---
+interface ResumeSectionProps {
+  resumeData: resumeValues;
+  styles: any;
+}
 
-function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
+function PersonalInfoHeader({ resumeData, styles }: ResumeSectionProps) {
   const {
     city,
     country,
@@ -58,44 +171,20 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
     lastName,
     phone,
     photo,
-    borderStyle,
     github,
     linkedin,
   } = resumeData;
 
-  const [photoSrc, setPhotoSrc] = useState(photo instanceof File ? "" : photo);
-
-  useEffect(() => {
-    const objectUrl = photo instanceof File ? URL.createObjectURL(photo) : "";
-    if (objectUrl) setPhotoSrc(objectUrl);
-    if (photo === null) setPhotoSrc("");
-    return () => {
-      if (objectUrl) URL.revokeObjectURL(objectUrl);
-    };
-  }, [photo]);
-
-  const isCentered = !photoSrc;
-
-  const photoStyle = {
-    borderRadius:
-      borderStyle === BorderStyles.SQUARE
-        ? 0
-        : borderStyle === BorderStyles.CIRCLE
-          ? 50
-          : 10,
-  };
-
   return (
-    <View style={styles.personalInfoContainer}>
-      {photoSrc && <Image src={photoSrc} style={[styles.photo, photoStyle]} />}
-      <View
-        style={
-          isCentered
-            ? styles.personalInfoTextContainerCentered
-            : styles.personalInfoTextContainer
-        }
-      >
-        <View style={styles.spaceY1}>
+    <View style={styles.headerContainer}>
+      {photo && (
+        <PDFImage
+          src={photo instanceof File ? URL.createObjectURL(photo) : photo}
+          style={styles.profileImage}
+        />
+      )}
+      <View style={styles.headerInfo}>
+        <View>
           <Text style={styles.name}>
             {firstName} {lastName}
           </Text>
@@ -108,51 +197,41 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           {(city || country) && (phone || email) ? " • " : ""}
           {[phone, email].filter(Boolean).join(" • ")}
         </Text>
-        <View
-          style={[
-            styles.contactLinksContainer,
-            // Corrected conditional style to prevent type error
-            isCentered ? styles.contactLinksContainerCentered : {},
-          ]}
-        >
-          <Link src={formatLink(linkedin || "")} style={styles.link}>
-            {linkedin}
-          </Link>
-          {/* Corrected to render a Text component to avoid invalid children */}
-          {linkedin && github ? (
-            <Text style={styles.linkSeparator}> | </Text>
-          ) : (
-            <Text></Text>
-          )}
-          <Link src={formatLink(github || "")} style={styles.link}>
-            {github}
-          </Link>
+        <View style={styles.linksContainer}>
+          <Text style={styles.contactInfo}>
+            {linkedin && (
+              <Link src={formatLink(linkedin)} style={styles.contactInfo}>
+                {linkedin}
+              </Link>
+            )}
+            {linkedin && github ? " | " : ""}
+            {github && (
+              <Link src={formatLink(github)} style={styles.contactInfo}>
+                {github}
+              </Link>
+            )}
+          </Text>
         </View>
       </View>
     </View>
   );
 }
 
-function SummarySection({ resumeData }: ResumeSectionProps) {
-  const { summary, colorHex } = resumeData;
+function SummarySection({ resumeData, styles }: ResumeSectionProps) {
+  const { summary } = resumeData;
   if (!summary) return null;
 
   return (
-    // The `break` prop is removed from the main section container
     <View style={styles.section}>
-      {/* minPresenceAhead ensures the heading doesn't get left alone */}
-      <View style={styles.sectionTitleContainer} minPresenceAhead={20}>
-        <Text style={[styles.sectionTitleText, { color: colorHex }]}>
-          Summary
-        </Text>
-      </View>
-      <Text style={styles.summaryContent}>{summary}</Text>
+      <Text style={styles.sectionTitle}>Summary</Text>
+      <Text style={styles.content}>{summary}</Text>
     </View>
   );
 }
 
-function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
-  const { workExperience, colorHex } = resumeData;
+function WorkExperienceSection({ resumeData, styles }: ResumeSectionProps) {
+  const { workExperience } = resumeData;
+
   const workExperienceIsNotEmpty = workExperience?.filter(
     (exp) => Object.values(exp)?.filter(Boolean).length > 0
   );
@@ -161,18 +240,13 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <View style={styles.section}>
-      <View style={styles.sectionTitleContainer} minPresenceAhead={40}>
-        <Text style={[styles.sectionTitleText, { color: colorHex }]}>
-          Work Experience
-        </Text>
-      </View>
+      <Text style={styles.sectionTitle}>Work Experience</Text>
       {workExperienceIsNotEmpty.map((exp, index) => (
-        // The `break` prop is kept on individual items to prevent them from splitting
-        <View key={index} style={styles.entryContainer} break>
-          <View style={styles.entryHeader}>
-            <Text style={styles.companyName}>{exp.company}</Text>
+        <View key={`work-${index}`} style={styles.expItem} wrap={false}>
+          <View style={styles.itemHeader}>
+            <Text>{exp.company}</Text>
             {exp.startDate && (
-              <Text style={styles.dateText}>
+              <Text>
                 {formatDate(exp.startDate, "yyyy-MM-dd")} –{" "}
                 {exp.endDate
                   ? formatDate(exp.endDate, "yyyy-MM-dd")
@@ -180,7 +254,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               </Text>
             )}
           </View>
-          <Text style={styles.position}>{exp.position}</Text>
+          <Text style={styles.itemSubHeader}>{exp.position}</Text>
           <Text style={styles.description}>{exp.description}</Text>
         </View>
       ))}
@@ -188,8 +262,9 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
   );
 }
 
-function ProjectSection({ resumeData }: ResumeSectionProps) {
-  const { projects, colorHex } = resumeData;
+function ProjectSection({ resumeData, styles }: ResumeSectionProps) {
+  const { projects } = resumeData;
+
   const projectIsNotEmpty = projects?.filter(
     (proj) => Object.values(proj)?.filter(Boolean).length > 0
   );
@@ -198,19 +273,13 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <View style={styles.section}>
-      <View style={styles.sectionTitleContainer} minPresenceAhead={40}>
-        <Text style={[styles.sectionTitleText, { color: colorHex }]}>
-          Projects
-        </Text>
-      </View>
+      <Text style={styles.sectionTitle}>Project</Text>
       {projectIsNotEmpty.map((proj, index) => (
-        <View key={index} style={styles.entryContainer} break>
-          <View style={styles.entryHeader}>
-            <Text style={[styles.projectName, { color: colorHex }]}>
-              {proj.name}
-            </Text>
+        <View key={`project-${index}`} style={styles.expItem} wrap={false}>
+          <View style={styles.itemHeader}>
+            <Text>{proj.name}</Text>
             {proj.startDate && (
-              <Text style={styles.dateText}>
+              <Text>
                 {formatDate(proj.startDate, "yyyy-MM-dd")} –{" "}
                 {proj.endDate
                   ? formatDate(proj.endDate, "yyyy-MM-dd")
@@ -218,31 +287,39 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
               </Text>
             )}
           </View>
+
           {proj.gitHubLink && (
-            <Text style={styles.projectLinkText}>
-              Github:{" "}
-              <Link src={formatLink(proj.gitHubLink)} style={styles.link}>
-                {proj.gitHubLink}
-              </Link>
-            </Text>
+            <View>
+              <Text style={styles.itemSubHeader}>
+                Github:{" "}
+                <Link src={formatLink(proj.gitHubLink)}>
+                  <Text style={styles.linkText}>{proj.gitHubLink}</Text>
+                </Link>
+              </Text>
+            </View>
           )}
+
           {proj.liveLink && (
-            <Text style={styles.projectLinkText}>
-              Live URL:{" "}
-              <Link src={formatLink(proj.liveLink)} style={styles.link}>
-                {proj.liveLink}
-              </Link>
-            </Text>
+            <View>
+              <Text style={styles.itemSubHeader}>
+                Live url:{" "}
+                <Link src={formatLink(proj.liveLink)}>
+                  <Text style={styles.linkText}>{proj.liveLink}</Text>
+                </Link>
+              </Text>
+            </View>
           )}
-          <Text style={styles.projectDescription}>{proj.description}</Text>
+
+          <Text style={styles.description}>{proj.description}</Text>
         </View>
       ))}
     </View>
   );
 }
 
-function EducationSection({ resumeData }: ResumeSectionProps) {
-  const { education, colorHex } = resumeData;
+function EducationSection({ resumeData, styles }: ResumeSectionProps) {
+  const { education } = resumeData;
+
   const educationIsNotEmpty = education?.filter(
     (edu) => Object.values(edu)?.filter(Boolean).length > 0
   );
@@ -251,17 +328,13 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
 
   return (
     <View style={styles.section}>
-      <View style={styles.sectionTitleContainer} minPresenceAhead={30}>
-        <Text style={[styles.sectionTitleText, { color: colorHex }]}>
-          Education
-        </Text>
-      </View>
+      <Text style={styles.sectionTitle}>Education</Text>
       {educationIsNotEmpty.map((edu, index) => (
-        <View key={index} style={styles.entryContainer} break>
-          <View style={styles.entryHeader}>
-            <Text style={styles.degree}>{edu.degree}</Text>
+        <View key={`education-${index}`} style={styles.expItem} wrap={false}>
+          <View style={styles.itemHeader}>
+            <Text>{edu.degree}</Text>
             {edu.startDate && (
-              <Text style={styles.dateText}>
+              <Text>
                 {formatDate(edu.startDate, "yyyy-MM-dd")} –{" "}
                 {edu.endDate
                   ? formatDate(edu.endDate, "yyyy-MM-dd")
@@ -269,31 +342,29 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
               </Text>
             )}
           </View>
-          <Text style={styles.school}>{edu.school}</Text>
+          <Text style={styles.itemSubHeader}>{edu.school}</Text>
         </View>
       ))}
     </View>
   );
 }
 
-function SkillsSection({ resumeData }: ResumeSectionProps) {
-  const { skills, colorHex } = resumeData;
+function SkillsSection({ resumeData, styles }: ResumeSectionProps) {
+  const { skills } = resumeData;
+
   if (!skills?.length) return null;
 
   return (
-    <View style={styles.section}>
-      <View style={styles.sectionTitleContainer} minPresenceAhead={20}>
-        <Text style={[styles.sectionTitleText, { color: colorHex }]}>
-          Skills
-        </Text>
-      </View>
-      <Text style={styles.skillsContent}>{skills.join(", ")}</Text>
+    <View style={styles.section} wrap={false}>
+      <Text style={styles.sectionTitle}>Skills</Text>
+      <Text style={styles.skills}>{skills.join(", ")}</Text>
     </View>
   );
 }
 
-function ActivitySection({ resumeData }: ResumeSectionProps) {
-  const { activites, colorHex } = resumeData;
+function ActivitySection({ resumeData, styles }: ResumeSectionProps) {
+  const { activites } = resumeData;
+
   const activityIsNotEmpty = activites?.filter(
     (act) => Object.values(act)?.filter(Boolean).length > 0
   );
@@ -302,190 +373,30 @@ function ActivitySection({ resumeData }: ResumeSectionProps) {
 
   return (
     <View style={styles.section}>
-      <View style={styles.sectionTitleContainer} minPresenceAhead={40}>
-        <Text style={[styles.sectionTitleText, { color: colorHex }]}>
-          Activities
-        </Text>
-      </View>
+      <Text style={styles.sectionTitle}>Activities</Text>
       {activityIsNotEmpty.map((act, index) => (
-        <View key={index} style={styles.entryContainer} break>
-          <View style={styles.entryHeader}>
-            <Text style={styles.degree}>{act.name}</Text>
+        <View key={`activity-${index}`} style={styles.expItem} wrap={false}>
+          <View style={styles.itemHeader}>
+            <Text>{act.name}</Text>
             {act.startDate && (
-              <Text style={styles.dateText}>
+              <Text>
                 {formatDate(act.startDate, "yyyy-MM-dd")}
                 {act.endDate
-                  ? ` – ${formatDate(act.endDate, "yyyy-MM-dd")}`
+                  ? `${" – "}${formatDate(act.endDate, "yyyy-MM-dd")}`
                   : ""}
               </Text>
             )}
           </View>
-          <Link
-            src={formatLink(act.certLink || "")}
-            style={[styles.link, styles.activityLink]}
-          >
-            {act.certLink}
-          </Link>
-          <Text style={styles.activityDescription}>{act.description}</Text>
+          {act.certLink && (
+            <Link src={formatLink(act.certLink)}>
+              <Text style={{...styles.itemSubHeader, color: "#333333", textDecoration: "underline"}}>
+                {act.certLink}
+              </Text>
+            </Link>
+          )}
+          <Text style={styles.description}>{act.description}</Text>
         </View>
       ))}
     </View>
   );
 }
-
-// --- Stylesheet for React PDF ---
-const styles = StyleSheet.create({
-  page: {
-    padding: 30,
-    fontFamily: "Helvetica",
-  },
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 12,
-  },
-  personalInfoContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 24,
-  },
-  photo: {
-    width: 100,
-    height: 100,
-    objectFit: "cover",
-  },
-  personalInfoTextContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-  },
-  personalInfoTextContainerCentered: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 10,
-    textAlign: "center",
-    alignItems: "center",
-  },
-  spaceY1: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-  },
-  name: {
-    fontSize: 22.5,
-    fontWeight: "bold",
-  },
-  jobTitle: {
-    fontSize: 12,
-    fontWeight: "medium",
-  },
-  contactInfo: {
-    fontSize: 9,
-    color: "#6b7280",
-  },
-  contactLinksContainer: {
-    fontSize: 9,
-    color: "#6b7280",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  contactLinksContainerCentered: {
-    justifyContent: "center",
-  },
-  link: {
-    color: "#6b7280",
-    textDecoration: "none",
-  },
-  linkSeparator: {
-    marginHorizontal: 4,
-  },
-  section: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 12,
-  },
-  sectionTitleContainer: {
-    borderWidth: 2,
-    borderColor: "black",
-    borderStyle: "solid",
-    paddingLeft: 12,
-    paddingVertical: 2,
-  },
-  sectionTitleText: {
-    fontSize: 14,
-    fontWeight: "semibold",
-  },
-  summaryContent: {
-    fontSize: 10.5,
-    paddingLeft: 12,
-  },
-  entryContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: 4,
-    paddingLeft: 12,
-  },
-  entryHeader: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    fontWeight: "semibold",
-  },
-  companyName: {
-    fontSize: 12.5,
-  },
-  dateText: {
-    fontSize: 10.5,
-  },
-  position: {
-    fontSize: 9,
-    fontWeight: "semibold",
-    color: "#1f2937",
-    paddingLeft: 12,
-  },
-  description: {
-    fontSize: 9,
-    paddingLeft: 24,
-  },
-  projectName: {
-    fontSize: 12.5,
-    fontWeight: "semibold",
-  },
-  projectLinkText: {
-    fontSize: 9,
-    fontWeight: "semibold",
-    paddingLeft: 12,
-  },
-  projectDescription: {
-    fontSize: 9,
-    paddingTop: 4,
-    paddingLeft: 12,
-  },
-  degree: {
-    fontSize: 10.5,
-    fontWeight: "semibold",
-  },
-  school: {
-    fontSize: 9,
-    fontWeight: "semibold",
-    paddingLeft: 12,
-  },
-  skillsContent: {
-    fontSize: 10.5,
-    paddingLeft: 12,
-  },
-  activityLink: {
-    fontSize: 9,
-    fontWeight: "semibold",
-    paddingLeft: 12,
-  },
-  activityDescription: {
-    fontSize: 9,
-    marginTop: 4,
-    paddingLeft: 12,
-  },
-});

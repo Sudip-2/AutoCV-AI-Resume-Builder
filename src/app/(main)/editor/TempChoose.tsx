@@ -41,16 +41,16 @@ export default function TempChoose({
       </PopoverTrigger>
       <PopoverContent
         align="center"
-        className="templateChooseScroll w-[240px] sm:w-[350px] h-[200px] overflow-hidden overflow-y-auto bg-black rounded-md p-3"
+        className="templateChooseScroll w-[240px] sm:w-[350px] h-[200px] overflow-hidden dark:bg-black overflow-y-auto rounded-md p-3"
       >
         <div className="">
           {/* Normal templates */}
-          <div className="gap-3 grid grid-cols-2 sm:grid-cols-3">
+          <div className="gap-3 grid grid-cols-2 sm:grid-cols-3 ">
             {templates.map((temp, index) => {
               return (
                 <div
                   className={cn(
-                    "relative cursor-pointer",
+                    "relative cursor-pointer shadow-md",
                     template === temp.name && "text-blue-500"
                   )}
                   key={index}
@@ -79,13 +79,13 @@ export default function TempChoose({
             })}
           </div>
           {/* premium templates */}
-          <h3 className="text-center">Premium templates</h3>
+          <h3 className="text-center mt-0.5">Premium templates</h3>
           <div className="gap-3 grid grid-cols-2 sm:grid-cols-3 mt-2">
             {premiumTemplates.map((temp, index) => {
               return (
                 <div
                   className={cn(
-                    "relative cursor-pointer",
+                    "relative cursor-pointer shadow-md",
                     template === temp.name && "text-blue-500"
                   )}
                   key={index}

@@ -6,6 +6,8 @@ import { DeleteSubscription } from "@/app/Actions/paymentActions";
 import { toast } from "sonner";
 import { usePremiumModalStore } from "@/hooks/useModals";
 import { format } from "date-fns";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 interface subscriptionProps {
   subscriptionLevel: boolean;
@@ -67,6 +69,7 @@ export default function Subscription({
             </span>
           </p>
         )}
+
         {isSubscribed ? (
           <SubscriptionBtn
             text={"Cancel subscription"}
@@ -81,6 +84,13 @@ export default function Subscription({
             onclick={handleSubscription}
           />
         )}
+        <div>
+          <Button asChild>
+            <Link href={"/resumes"}>
+              Go back to dashboard <ChevronRight />{" "}
+            </Link>
+          </Button>
+        </div>
         <p className="text-sm text-muted-foreground">
           Any problem regarding subscriptions, please contact: p452570@gmail.com
         </p>

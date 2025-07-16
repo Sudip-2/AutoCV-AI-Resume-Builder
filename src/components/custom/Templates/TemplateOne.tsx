@@ -94,10 +94,10 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           <p>
             {linkedin && (
               <a
-                href={formatLink(linkedin)}
+                href={formatLink(linkedin ? linkedin : "")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline hover:text-blue-600"
+                className="hover:cursor-pointer hover:underline"
               >
                 {linkedin}
               </a>
@@ -105,10 +105,10 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
             {linkedin && github ? " | " : ""}
             {github && (
               <a
-                href={formatLink(github)}
+                href={formatLink(github ? github : "")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:underline hover:text-blue-600"
+                className="hover:cursor-pointer hover:underline"
               >
                 {github}
               </a>
@@ -166,22 +166,12 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1">
               <div className="flex items-center justify-between text-sm font-semibold">
-                <span
-                  style={{
-                    color: colorHex,
-                  }}
-                >
-                  {exp.position}
-                </span>
+                <span>{exp.position}</span>
                 {exp.startDate && (
-                  <span
-                  // style={{
-                  //   color: colorHex,
-                  // }}
-                  >
-                    {formatDate(exp.startDate, "MM/yyyy/dd")} -{" "}
+                  <span>
+                    {formatDate(exp.startDate, "yyyy-MM-dd")} –{" "}
                     {exp.endDate
-                      ? formatDate(exp.endDate, "MM/yyyy/dd")
+                      ? formatDate(exp.endDate, "yyyy-MM-dd")
                       : "Present"}
                   </span>
                 )}
@@ -223,18 +213,12 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1">
               <div className="break-inside-avoid flex items-center justify-between text-sm font-semibold">
-                <span
-                  style={{
-                    color: colorHex,
-                  }}
-                >
-                  {proj.name}
-                </span>
+                <span>{proj.name}</span>
                 {proj.startDate && (
                   <span>
-                    {formatDate(proj.startDate, "MM/yyyy/dd")} -{" "}
+                    {formatDate(proj.startDate, "yyyy-MM-dd")} –{" "}
                     {proj.endDate
-                      ? formatDate(proj.endDate, "MM/yyyy/dd")
+                      ? formatDate(proj.endDate, "yyyy-MM-dd")
                       : "Present"}
                   </span>
                 )}
@@ -246,7 +230,7 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
                     href={formatLink(proj.gitHubLink)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline hover:text-blue-600"
+                    className="hover:cursor-pointer hover:underline"
                   >
                     {proj.gitHubLink}
                   </a>
@@ -259,7 +243,7 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
                     href={formatLink(proj.liveLink)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline hover:text-blue-600"
+                    className="hover:cursor-pointer hover:underline"
                   >
                     {proj.liveLink}
                   </a>
@@ -302,22 +286,12 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1">
               <div className="flex items-center justify-between text-sm font-semibold">
-                <span
-                  style={{
-                    color: colorHex,
-                  }}
-                >
-                  {edu.degree}
-                </span>
+                <span>{edu.degree}</span>
                 {edu.startDate && (
-                  <span
-                  // style={{
-                  //   color: colorHex,
-                  // }}
-                  >
-                    {formatDate(edu.startDate, "MM/yyyy/dd")} -{" "}
+                  <span>
+                    {formatDate(edu.startDate, "yyyy-MM-dd")} –{" "}
                     {edu.endDate
-                      ? formatDate(edu.endDate, "MM/yyyy/dd")
+                      ? formatDate(edu.endDate, "yyyy-MM-dd")
                       : "Present"}
                   </span>
                 )}
@@ -399,22 +373,12 @@ function ActivitySection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1">
               <div className="flex items-center justify-between text-sm font-semibold">
-                <span
-                  style={{
-                    color: colorHex,
-                  }}
-                >
-                  {act.name}
-                </span>
+                <span>{act.name}</span>
                 {act.startDate && (
-                  <span
-                  // style={{
-                  //   color: colorHex,
-                  // }}
-                  >
-                    {formatDate(act.startDate, "MM/yyyy/dd")}
+                  <span>
+                    {formatDate(act.startDate, "yyyy-MM-dd")}
                     {act.endDate
-                      ? `${" - "}${formatDate(act.endDate, "MM/yyyy/dd")}`
+                      ? `${" – "}${formatDate(act.endDate, "yyyy-MM-dd")}`
                       : ""}
                   </span>
                 )}
@@ -422,10 +386,10 @@ function ActivitySection({ resumeData }: ResumeSectionProps) {
               {act.certLink && (
                 <p className="text-xs font-semibold">
                   <a
-                    href={formatLink(act.certLink)}
+                    href={formatLink(act.certLink ? act.certLink : "")}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline hover:text-blue-600"
+                    className="hover:cursor-pointer hover:underline"
                   >
                     {act.certLink}
                   </a>

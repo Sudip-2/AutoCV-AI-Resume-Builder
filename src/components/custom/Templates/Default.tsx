@@ -156,14 +156,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1 pl-3">
               <div className="flex items-center justify-between text-sm font-semibold">
-                <span
-                  className="text-[16.5px]"
-                  // style={{
-                  //   color: colorHex,
-                  // }}
-                >
-                  {exp.company}
-                </span>
+                <span className="text-[16.5px]">{exp.company}</span>
                 {exp.startDate && (
                   <span>
                     {formatDate(exp.startDate, "yyyy-MM-dd")} –{" "}
@@ -211,14 +204,7 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
           return (
             <div key={index} className="break-inside-avoid space-y-1 pl-3">
               <div className="break-inside-avoid flex items-center justify-between text-sm font-semibold">
-                <span
-                  className="text-[16.5px]"
-                  style={{
-                    color: colorHex,
-                  }}
-                >
-                  {proj.name}
-                </span>
+                <span className="text-[16.5px]">{proj.name}</span>
                 {proj.startDate && (
                   <span>
                     {formatDate(proj.startDate, "yyyy-MM-dd")} –{" "}
