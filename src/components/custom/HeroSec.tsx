@@ -1,17 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { Activity, Play, Search, Star, TrendingUp, Zap } from "lucide-react";
+import { Activity, Star, TrendingUp, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-blue-50">
+    <section
+      className="relative overflow-hidden bg-blue-50 dark:bg-gray-900"
+      id="hero"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Content */}
           <div className="max-w-2xl animate-fade-in">
             <div className="mb-6">
-              <div className="inline-flex items-center gap-2 bg-accent/50 rounded-full px-4 py-2 text-sm font-medium text-accent-foreground mb-4">
-                <Zap className="h-4 w-4 text-primary" />
+              <div className="bg-white dark:bg-gray-800/70 text-blue-500 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium mb-4 shadow-sm">
+                <Zap className="h-4 w-4" />
                 AI-Powered Resume Builder
               </div>
             </div>
@@ -30,7 +33,7 @@ export default function Hero() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <Button
-                variant="default"
+                variant="hero"
                 size="lg"
                 className="flex items-center gap-2"
                 asChild
@@ -60,14 +63,14 @@ export default function Hero() {
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className="h-4 w-4 fill-primary text-primary"
+                      className="h-4 w-4 fill-blue-500 text-blue-500"
                     />
                   ))}
                 </div>
                 <span className="ml-2">AI-Powered Analysis</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-2 w-2 bg-primary rounded-full animate-pulse"></div>
+                <div className="h-2 w-2 bg-blue-500 rounded-full animate-pulse" />
                 <span>Free to Start</span>
               </div>
             </div>
@@ -75,18 +78,19 @@ export default function Hero() {
 
           {/* Hero Image */}
           <div className="relative animate-fade-in-up">
-            <div className="relative rounded-2xl overflow-hidden shadow-elegant">
-              <img
-                src={"https://via.placeholder.com/800x600"}
-                alt="Resume Builder Interface"
-                className="w-full h-auto object-cover"
-              />
-              {/* Overlay for better contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent"></div>
+            <div className="relative rounded-2xl overflow-hidden shadow-elegant w-full aspect-video shadow-md">
+              <video
+                src="/autoCVDemo.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              ></video>
             </div>
 
             {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 bg-card border border-border rounded-lg p-4 shadow-soft animate-scale-in">
+            <div className="hidden sm:block absolute -top-4 -right-4 bg-card border border-border rounded-lg p-4 shadow-soft animate-scale-in ">
               <div className="flex items-center gap-2 text-sm font-medium">
                 <div className="h-2 w-2 bg-green-500 rounded-full"></div>
                 <span className="text-foreground">AI Analysis Complete</span>
@@ -94,14 +98,14 @@ export default function Hero() {
             </div>
 
             <div
-              className="absolute -bottom-4 -left-4 bg-card border border-border rounded-lg p-4 shadow-soft animate-scale-in"
+              className="hidden sm:block absolute -bottom-4 -left-4 bg-card border border-border rounded-lg p-4 shadow-soft animate-scale-in"
               style={{ animationDelay: "0.2s" }}
             >
               <div className="text-sm font-medium text-foreground">
-                95% Match Score
+                Check Score
               </div>
               <div className="text-xs text-muted-foreground">
-                Resume Optimized
+                of your resume for free
               </div>
             </div>
           </div>

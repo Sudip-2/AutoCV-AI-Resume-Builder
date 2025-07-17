@@ -7,19 +7,20 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, Bot, Download, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function HowItWorks() {
   const steps = [
     {
       step: "01",
       icon: Upload,
-      title: "Upload or Start Fresh",
+      title: "Fill your details",
       description:
-        "Either upload your existing resume or start building from scratch using our intuitive editor.",
+        "start building from by filling details using our intuitive editor.",
       details: [
-        "Supports PDF, Word, and text formats",
-        "Smart content extraction",
-        "Preserves your formatting",
+        "Supports PDF and DOCX",
+        "Smart fill AI",
+        "Autosaves your data",
       ],
     },
     {
@@ -39,9 +40,9 @@ export default function HowItWorks() {
       icon: Download,
       title: "Download & Apply",
       description:
-        "Get your optimized resume in multiple formats and start applying with confidence.",
+        "Download your optimized resume and start applying with confidence.",
       details: [
-        "PDF, Word, and text exports",
+        "PDF exports",
         "Professional formatting",
         "Ready for any application",
       ],
@@ -49,15 +50,13 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 lg:py-28 bg-background">
+    <section id="how-it-works" className="py-20 lg:py-28 dark:bg-[#0c131e]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
             Simple Process,{" "}
-            <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Powerful Results
-            </span>
+            <span className="text-blue-500">Powerful Results</span>
           </h2>
           <p className="text-xl text-muted-foreground">
             Get from zero to interview-ready in just three easy steps. Our
@@ -70,7 +69,7 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <div key={step.step} className="relative">
               <Card
-                className="h-full group hover:shadow-elegant transition-all duration-300 border-border/50 animate-fade-in-up"
+                className="h-full group hover:shadow-elegant dark:bg-gray-900/80 transition-all duration-300 border-border/50 animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
                 <CardHeader>
@@ -131,12 +130,11 @@ export default function HowItWorks() {
             resumes with our AI-powered platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button variant="default" size="lg" className="group">
-              Start Building Now
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button variant="outline" size="lg">
-              Learn More
+            <Button variant="hero" size="lg" className="group" asChild>
+              <Link href={"/resumes"}>
+                Start Building Now
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
           </div>
           <p className="text-sm text-muted-foreground mt-4">

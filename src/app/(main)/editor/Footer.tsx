@@ -29,7 +29,7 @@ const Footer = ({
   return (
     <footer className="py-5 border-t px-3">
       <div className="container mx-auto flex justify-between items-center gap-2">
-        <div className="flex gap-3 flex-wrap-reverse">
+        <div className="flex gap-2 sm:gap-3 flex-wrap-reverse">
           <Button
             variant="outline"
             onClick={
@@ -55,9 +55,9 @@ const Footer = ({
         >
           {showSmResumePrev ? <PenLineIcon /> : <FileUserIcon />}
         </Button>
-        <div className="flex gap-3 items-center ml-2 ">
+        <div className="flex gap-3 items-center ml-1 ">
           <Button asChild variant="outline" disabled={isSaving}>
-            <Link href={"/resumes"}>{isSaving ? "...saving" : "Close"}</Link>
+            <Link href={"/resumes"}>{isSaving ? "Saving" : "Close"}</Link>
           </Button>
         </div>
       </div>

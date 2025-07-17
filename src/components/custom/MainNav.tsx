@@ -8,70 +8,50 @@ import { ModeToggle } from "./ToggleBtn";
 export default function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
+    <header className="bg-background/95 dark:bg-[#0a0f1a]/90 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <FileText className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-foreground">AutoCV</span>
-          </div>
+          <Link href={"#hero"} className="flex items-center space-x-2 ">
+            <FileText className="h-8 w-8 text-blue-500" />
+            <span className="text-xl font-bold ">AutoCV</span>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <a
+              href="#hero"
+              className="text-muted-foreground hover:text-blue-500 transition-colors"
+            >
+              Home
+            </a>
+            <a
               href="#features"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-muted-foreground hover:text-blue-500 transition-colors"
             >
               Features
             </a>
             <a
               href="#how-it-works"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="text-muted-foreground hover:text-blue-500 transition-colors"
             >
               How It Works
-            </a>
-            <a
-              href="#pricing"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Pricing
             </a>
           </nav>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleDarkMode}
-              className="text-muted-foreground hover:text-primary"
-            >
-              {darkMode ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button> */}
             <ModeToggle />
-            <Button variant="outline">Sign In</Button>
-            <Button variant="default">Get Started</Button>
+            <Button variant="outline" asChild>
+              <Link href={"/resumes"}>Sign In</Link>
+            </Button>
+            <Button variant="hero" asChild>
+              <Link href={"/resumes"}>Get Started</Link>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-2">
-            {/* <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleDarkMode}
-              className="text-muted-foreground hover:text-primary"
-            >
-              {darkMode ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button> */}
             <ModeToggle />
             <Button
               variant="ghost"

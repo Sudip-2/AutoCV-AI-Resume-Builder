@@ -1,47 +1,40 @@
 import { FileText, Mail, Twitter, Linkedin, Github } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-muted/50 border-t border-border">
+    <footer className="bg-muted/50 dark:bg-gray-950 border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Logo and Description */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <FileText className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold text-foreground">
-                ResumeAI
-              </span>
+              <FileText className="h-8 w-8 text-blue-500" />
+              <span className="text-xl font-bold text-foreground">AutoCV</span>
             </div>
             <p className="text-muted-foreground mb-6 max-w-md">
               Build professional resumes with AI-powered analysis and
               optimization. Land your dream job with confidence.
             </p>
             <div className="flex items-center space-x-4">
-              <a
-                href="#"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
+              <Link
+                href="https://www.linkedin.com/in/sudip-paul20"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Linkedin className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="https://github.com/Sudip-2"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Github className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="mailto:p452570@gmail.com"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail className="h-5 w-5" />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -50,36 +43,28 @@ export default function Footer() {
             <h3 className="font-semibold text-foreground mb-4">Product</h3>
             <ul className="space-y-3">
               <li>
-                <a
+                <Link
                   href="#features"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="#features"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   Templates
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  href="/analyze"
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   AI Analysis
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Pricing
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -88,14 +73,6 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Support</h3>
             <ul className="space-y-3">
-              <li>
-                <a
-                  href="#"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  Help Center
-                </a>
-              </li>
               <li>
                 <a
                   href="#"
@@ -127,10 +104,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 ResumeAI. All rights reserved.
+            © 2025 AutoCV. All rights reserved.
           </p>
           <p className="text-muted-foreground text-sm mt-4 sm:mt-0">
-            Built with ❤️ for job seekers everywhere
+            Built with ❤️ from Sudip
           </p>
         </div>
       </div>

@@ -7,6 +7,7 @@ const isPublicRoute = createRouteMatcher([
   "/api/razorpay-webhook",
   "/analyze",
   "/api/analyze(.*)",
+  "/autoCVDemo.mp4",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {

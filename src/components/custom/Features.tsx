@@ -17,8 +17,7 @@ import {
   Target,
   CheckCircle,
 } from "lucide-react";
-// import aiImage from "@/assets/features-ai.jpg";
-// import templatesImage from "@/assets/features-templates.jpg";
+import Link from "next/link";
 
 export default function Features() {
   const features = [
@@ -27,13 +26,13 @@ export default function Features() {
       title: "AI-Powered Analysis",
       description:
         "Get intelligent feedback on your resume content, formatting, and keywords to maximize your chances.",
-      image: "https://via.placeholder.com/800x600",
+      video: "/autoCVDemo.mp4",
     },
     {
       icon: Palette,
       title: "Professional Templates",
       description:
-        "Choose from dozens of ATS-friendly templates designed by professional recruiters.",
+        "Choose from multiple ATS-friendly templates designed by professional recruiters and maximize your chances.",
       image: "https://via.placeholder.com/800x600",
     },
     {
@@ -49,25 +48,28 @@ export default function Features() {
         "Tailor your resume for specific job postings with targeted keyword optimization.",
     },
     {
-      icon: Download,
-      title: "Multiple Export Formats",
+      icon: CheckCircle,
+      title: "Best in class editor",
       description:
-        "Download your resume in PDF, Word, or plain text formats with perfect formatting.",
+        "Edit your resume with a powerful, user-friendly editor that supports multiple templates and styles.",
     },
     {
       icon: Shield,
       title: "Privacy Protected",
       description:
-        "Your data is encrypted and secure. We never share your personal information.",
+        "Your data is secure with us. We never share your personal information.",
     },
   ];
 
   return (
-    <section id="features" className="py-20 lg:py-28 bg-muted/30">
+    <section
+      id="features"
+      className="py-20 lg:py-28 bg-gray-50 dark:bg-[#101624]"
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in">
-          <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-4 py-2 text-sm font-medium text-primary mb-4">
+          <div className="inline-flex items-center gap-2 bg-white shadow-sm dark:bg-gray-800/60 rounded-full px-4 py-2 text-sm font-medium text-blue-500 mb-4">
             <Sparkles className="h-4 w-4" />
             Powerful Features
           </div>
@@ -85,7 +87,7 @@ export default function Features() {
           {features.slice(0, 2).map((feature, index) => (
             <Card
               key={feature.title}
-              className="group hover:shadow-elegant transition-all duration-300 border-border/50 animate-fade-in-up"
+              className="group hover:shadow hover:dark:shadow-blue-800 dark:bg-gray-800/20 transition-all duration-300 border-border/50 animate-fade-in-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardHeader>
@@ -101,13 +103,15 @@ export default function Features() {
                   {feature.description}
                 </CardDescription>
               </CardHeader>
-              {feature.image && (
+              {feature.video && (
                 <CardContent>
-                  <div className="rounded-lg overflow-hidden shadow-soft group-hover:shadow-elegant transition-shadow duration-300">
-                    <img
-                      src={"https://via.placeholder.com/800x600"}
-                      alt={feature.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  <div className="rounded-lg overflow-hidden shadow-soft group-hover:shadow-elegant transition-shadow duration-300 shadow">
+                    <video
+                      src={feature.video}
+                      loop
+                      autoPlay
+                      muted
+                      className="w-full aspect-video object-cover"
                     />
                   </div>
                 </CardContent>
@@ -121,7 +125,7 @@ export default function Features() {
           {features.slice(2).map((feature, index) => (
             <Card
               key={feature.title}
-              className="group hover:shadow-soft transition-all duration-300 border-border/50 animate-fade-in-up"
+              className="group hover:shadow hover:dark:shadow-blue-800 dark:bg-gray-800/20 transition-all duration-300 border-border/50"
               style={{ animationDelay: `${(index + 2) * 0.1}s` }}
             >
               <CardHeader>
@@ -141,9 +145,11 @@ export default function Features() {
 
         {/* CTA */}
         <div className="text-center animate-fade-in">
-          <Button variant="default" size="lg" className="group">
-            <FileText className="h-5 w-5 group-hover:scale-110 transition-transform" />
-            Try All Features Free
+          <Button variant="hero" size="lg" className="group" asChild>
+            <Link href={"/resumes"}>
+              <FileText className="h-5 w-5 group-hover:scale-110 transition-transform" />
+              Try All Features Free
+            </Link>
           </Button>
           <p className="text-sm text-muted-foreground mt-4">
             No credit card required • Free forever plan available
