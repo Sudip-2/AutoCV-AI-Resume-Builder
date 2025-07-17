@@ -1,36 +1,186 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AutoCV - AI-Powered Resume Builder 🚀
 
-## Getting Started
+[![Next.js](https://img.shields.io/badge/Next.js-15.3.3-black?logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0.0-blue?logo=react&logoColor=white)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.0-06B6D4?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-6.8.2-2D3748?logo=prisma&logoColor=white)](https://prisma.io/)
 
-First, run the development server:
+> Build professional resumes with AI-powered analysis and optimization. Land your dream job with confidence.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🌟 Features
+
+- **🤖 AI-Powered Analysis**: Get intelligent feedback on your resume content, formatting, and keywords
+- **🎨 Professional Templates**: Choose from multiple ATS-friendly templates designed by professionals
+- **📊 Real-time Scoring**: See your resume score improve as you make AI-suggested improvements
+- **🎯 Job-Specific Optimization**: Tailor your resume for specific job postings with keyword optimization
+- **📄 Multiple Export Formats**: Download in PDF, Word, or plain text formats
+- **🔒 Privacy Protected**: Your data is encrypted and secure
+- **🌙 Dark Mode**: Toggle between light and dark themes
+- **📱 Responsive Design**: Works seamlessly on desktop and mobile devices
+
+## 🚀 Live Demo
+
+[**Try AutoCV Now**](https://your-deployment-url.com) <!-- Replace with your actual deployment URL -->
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS, shadcn/ui components
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: Clerk
+- **AI Integration**: Google Generative AI (Gemini)
+- **PDF Generation**: @react-pdf/renderer
+- **File Upload**: Vercel Blob
+- **Payments**: Razorpay
+- **State Management**: Zustand
+
+## 🏗️ Project Structure
+
+```
+AutoCV-AI-Resume-Builder/
+├── prisma/                  # Database schema
+├── public/                  # Static assets
+├── src/
+│   ├── app/                # Next.js App Router
+│   │   ├── (auth)/         # Authentication pages
+│   │   ├── (main)/         # Main application pages
+│   │   ├── (public)/       # Public landing pages
+│   │   └── api/            # API routes
+│   ├── components/         # React components
+│   │   ├── custom/         # Custom components
+│   │   └── ui/             # shadcn/ui components
+│   ├── lib/                # Utility functions
+│   └── hooks/              # Custom React hooks
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18+ 
+- npm or yarn
+- PostgreSQL database
 
-## Learn More
+### Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Sudip-2/AutoCV-AI-Resume-Builder.git
+   cd AutoCV-AI-Resume-Builder
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Set up environment variables**
+   
+   Create a `.env.local` file in the root directory:
+   ```env
+   # Database
+   DATABASE_URL="postgresql://username:password@localhost:5432/autocv"
+   
+   # Clerk Authentication
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
+   CLERK_SECRET_KEY="your_clerk_secret_key"
+   
+   # Google AI
+   GOOGLE_AI_API_KEY="your_google_ai_api_key"
+   
+   # Vercel Blob (for file uploads)
+   BLOB_READ_WRITE_TOKEN="your_blob_token"
+   
+   # Razorpay (for payments)
+   RAZORPAY_KEY_ID="your_razorpay_key_id"
+   RAZORPAY_SECRET="your_razorpay_secret"
+   ```
 
-## Deploy on Vercel
+4. **Set up the database**
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+6. **Open your browser**
+   
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📋 Usage
+
+### Creating a Resume
+
+1. **Sign up/Login** using Clerk authentication
+2. **Create a new resume** from the dashboard
+3. **Fill in your details** using the step-by-step editor
+4. **Choose a template** from the available professional designs
+5. **Get AI feedback** on your resume content and formatting
+6. **Download** your resume in PDF, Word, or text format
+
+### AI Analysis
+
+The AI analyzes your resume for:
+- Content quality and relevance
+- Keyword optimization
+- ATS compatibility
+- Professional formatting
+- Industry-specific recommendations
+
+## 🔧 API Endpoints
+
+### Resume Operations
+- `GET /api/resumes` - Get user's resumes
+- `POST /api/resumes` - Create new resume
+- `PUT /api/resumes/:id` - Update resume
+- `DELETE /api/resumes/:id` - Delete resume
+
+### AI Analysis
+- `POST /api/analyze` - Analyze resume content
+
+### Payments
+- `POST /api/razorpay-webhook` - Handle payment webhooks
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+**Sudip Paul**
+- GitHub: [@Sudip-2](https://github.com/Sudip-2)
+- Email: p452570@gmail.com
+
+## 🙏 Acknowledgments
+
+- [Next.js](https://nextjs.org/) for the amazing React framework
+- [Tailwind CSS](https://tailwindcss.com/) for utility-first CSS
+- [shadcn/ui](https://ui.shadcn.com/) for beautiful components
+- [Clerk](https://clerk.com/) for authentication
+- [Prisma](https://prisma.io/) for database management
+- [Google AI](https://ai.google/) for AI capabilities
+
+## 📊 Support
+
+If you like this project, please consider giving it a ⭐ on GitHub!
+
+---
+
+<p align="center">Built with ❤️ by Sudip Paul</p>

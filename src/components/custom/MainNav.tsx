@@ -72,6 +72,12 @@ export default function MainNav() {
           <div className="md:hidden py-4 border-t border-border animate-fade-in">
             <nav className="flex flex-col space-y-4">
               <a
+                href="#hero"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                Home
+              </a>
+              <a
                 href="#features"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
@@ -83,18 +89,12 @@ export default function MainNav() {
               >
                 How It Works
               </a>
-              <a
-                href="#pricing"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                Pricing
-              </a>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="w-full">
-                  Sign In
+                <Button variant="outline" className="w-full" asChild>
+                  <Link href={"/resumes"}>Sign In</Link>
                 </Button>
-                <Button variant="default" className="w-full">
-                  Get Started
+                <Button variant="default" className="w-full" asChild>
+                  <Link href={"/resumes"}>Get Started</Link>
                 </Button>
               </div>
             </nav>
