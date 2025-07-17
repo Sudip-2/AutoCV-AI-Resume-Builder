@@ -21,7 +21,7 @@
 
 ## 🚀 Live Demo
 
-[**Try AutoCV Now**](https://your-deployment-url.com) <!-- Replace with your actual deployment URL -->
+[**Try AutoCV Now**](https://auto-cv-ai-resume-builder.vercel.app/) <!-- Replace with your actual deployment URL -->
 
 ## 🛠️ Tech Stack
 
@@ -60,58 +60,63 @@ AutoCV-AI-Resume-Builder/
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - PostgreSQL database
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Sudip-2/AutoCV-AI-Resume-Builder.git
    cd AutoCV-AI-Resume-Builder
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
-   
+
    Create a `.env.local` file in the root directory:
+
    ```env
    # Database
    DATABASE_URL="postgresql://username:password@localhost:5432/autocv"
-   
+
    # Clerk Authentication
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
    CLERK_SECRET_KEY="your_clerk_secret_key"
-   
+
    # Google AI
    GOOGLE_AI_API_KEY="your_google_ai_api_key"
-   
+
    # Vercel Blob (for file uploads)
    BLOB_READ_WRITE_TOKEN="your_blob_token"
-   
+
    # Razorpay (for payments)
    RAZORPAY_KEY_ID="your_razorpay_key_id"
    RAZORPAY_SECRET="your_razorpay_secret"
    ```
 
 4. **Set up the database**
+
    ```bash
    npx prisma generate
    npx prisma db push
    ```
 
 5. **Run the development server**
+
    ```bash
    npm run dev
    ```
 
 6. **Open your browser**
-   
+
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 📋 Usage
@@ -128,6 +133,7 @@ AutoCV-AI-Resume-Builder/
 ### AI Analysis
 
 The AI analyzes your resume for:
+
 - Content quality and relevance
 - Keyword optimization
 - ATS compatibility
@@ -137,15 +143,18 @@ The AI analyzes your resume for:
 ## 🔧 API Endpoints
 
 ### Resume Operations
+
 - `GET /api/resumes` - Get user's resumes
 - `POST /api/resumes` - Create new resume
 - `PUT /api/resumes/:id` - Update resume
 - `DELETE /api/resumes/:id` - Delete resume
 
 ### AI Analysis
+
 - `POST /api/analyze` - Analyze resume content
 
 ### Payments
+
 - `POST /api/razorpay-webhook` - Handle payment webhooks
 
 ## 🤝 Contributing
@@ -165,6 +174,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👤 Author
 
 **Sudip Paul**
+
 - GitHub: [@Sudip-2](https://github.com/Sudip-2)
 - Email: p452570@gmail.com
 
