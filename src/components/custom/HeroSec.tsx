@@ -1,8 +1,12 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Activity, Star, TrendingUp, Zap } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Hero() {
+  const [videoLoading, setVideoLoading] = useState(false);
+
   return (
     <section
       className="relative overflow-hidden bg-blue-50 dark:bg-gray-900"
@@ -79,6 +83,18 @@ export default function Hero() {
           {/* Hero Image */}
           <div className="relative animate-fade-in-up">
             <div className="relative rounded-2xl overflow-hidden shadow-elegant w-full aspect-video shadow-md">
+              {/* Loading State */}
+              {videoLoading && (
+                <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                  <div className="flex flex-col items-center gap-3">
+                    <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-sm text-muted-foreground">
+                      Loading demo...
+                    </span>
+                  </div>
+                </div>
+              )}
+
               <video
                 src="/autoCVDemo.mp4"
                 autoPlay
@@ -86,6 +102,10 @@ export default function Hero() {
                 muted
                 playsInline
                 className="w-full h-full object-cover"
+                onLoadedData={() => setVideoLoading(false)}
+                onCanPlay={() => setVideoLoading(false)}
+                onLoadStart={() => setVideoLoading(true)}
+                onError={() => setVideoLoading(false)}
               ></video>
             </div>
 

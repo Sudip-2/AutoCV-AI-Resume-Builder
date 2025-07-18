@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,10 +18,11 @@ import {
   Target,
   CheckCircle,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Features() {
+  const [videoLoading, setVideoLoading] = useState(false);
   const features = [
     {
       icon: Bot,
@@ -106,14 +108,31 @@ export default function Features() {
               </CardHeader>
               {feature.video && (
                 <CardContent>
-                  <div className="rounded-lg overflow-hidden shadow-soft group-hover:shadow-elegant transition-shadow duration-300 shadow">
+                  <div className="relative rounded-lg overflow-hidden shadow-elegant w-full aspect-video shadow-md">
+                    {/* Loading State */}
+                    {videoLoading && (
+                      <div className="absolute inset-0 bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
+                        <div className="flex flex-col items-center gap-3">
+                          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                          <span className="text-sm text-muted-foreground">
+                            Loading demo...
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
                     <video
                       src={feature.video}
-                      loop
                       autoPlay
+                      loop
                       muted
-                      className="w-full aspect-video object-cover"
-                    />
+                      playsInline
+                      className="w-full h-full object-cover"
+                      onLoadedData={() => setVideoLoading(false)}
+                      onCanPlay={() => setVideoLoading(false)}
+                      onLoadStart={() => setVideoLoading(true)}
+                      onError={() => setVideoLoading(false)}
+                    ></video>
                   </div>
                 </CardContent>
               )}
