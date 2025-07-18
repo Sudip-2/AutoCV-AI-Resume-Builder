@@ -17,6 +17,7 @@ import {
   Target,
   CheckCircle,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Features() {
@@ -33,7 +34,7 @@ export default function Features() {
       title: "Professional Templates",
       description:
         "Choose from multiple ATS-friendly templates designed by professional recruiters and maximize your chances.",
-      image: "https://via.placeholder.com/800x600",
+      image: "/subHeroImg.png",
     },
     {
       icon: BarChart3,
@@ -111,6 +112,18 @@ export default function Features() {
                       loop
                       autoPlay
                       muted
+                      className="w-full aspect-video object-cover"
+                    />
+                  </div>
+                </CardContent>
+              )}
+              {feature.image && (
+                <CardContent>
+                  <div className="relative rounded-lg overflow-hidden shadow-soft group-hover:shadow-elegant transition-shadow duration-300 shadow">
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      // fill
                       className="w-full aspect-video object-cover"
                     />
                   </div>
