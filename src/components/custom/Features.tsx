@@ -22,7 +22,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Features() {
-  const [videoLoading, setVideoLoading] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(true);
   const features = [
     {
       icon: Bot,

@@ -12,7 +12,7 @@ export default function MainNav() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href={"#hero"} className="flex items-center space-x-2 ">
+          <Link href={"/"} className="flex items-center space-x-2 ">
             <FileText className="h-8 w-8 text-blue-500" />
             <span className="text-xl font-bold ">AutoCV</span>
           </Link>

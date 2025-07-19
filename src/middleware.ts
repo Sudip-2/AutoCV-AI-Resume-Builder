@@ -8,6 +8,7 @@ const isPublicRoute = createRouteMatcher([
   "/analyze",
   "/api/analyze(.*)",
   "/autoCVDemo.mp4",
+  "/morepages(.*)",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
