@@ -4,9 +4,11 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import { Menu, X, FileText } from "lucide-react";
 import { ModeToggle } from "./ToggleBtn";
+import { useUser } from "@clerk/nextjs";
 
 export default function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isSignedIn } = useUser();
   return (
     <header className="bg-background/95 dark:bg-[#0a0f1a]/90 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -42,9 +44,9 @@ export default function MainNav() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <ModeToggle />
-            <Button variant="outline" asChild>
+            {!isSignedIn && <Button variant="outline" asChild>
               <Link href={"/resumes"}>Sign In</Link>
-            </Button>
+            </Button>}
             <Button variant="hero" asChild>
               <Link href={"/resumes"}>Get Started</Link>
             </Button>
@@ -90,9 +92,9 @@ export default function MainNav() {
                 How It Works
               </a>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" className="w-full" asChild>
+                {!isSignedIn && <Button variant="outline" className="w-full" asChild>
                   <Link href={"/resumes"}>Sign In</Link>
-                </Button>
+                </Button>}
                 <Button variant="default" className="w-full" asChild>
                   <Link href={"/resumes"}>Get Started</Link>
                 </Button>

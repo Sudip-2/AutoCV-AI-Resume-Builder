@@ -212,7 +212,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Sudip\\Desktop\\Code\\Projects\\AutoCV-AI-Resume-Builder\\src\\generated\\prisma",
+      "value": "C:\\Users\\Sudip\\Desktop\\Code\\Personal\\AutoCV-AI-Resume-Builder\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -226,12 +226,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Sudip\\Desktop\\Code\\Projects\\AutoCV-AI-Resume-Builder\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Sudip\\Desktop\\Code\\Personal\\AutoCV-AI-Resume-Builder\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.8.2",
